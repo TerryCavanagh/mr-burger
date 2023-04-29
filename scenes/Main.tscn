@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://hy1vgy63inhb"]
+[gd_scene load_steps=10 format=3 uid="uid://hy1vgy63inhb"]
 
 [ext_resource type="TileSet" uid="uid://bw4gfq8om3cop" path="res://graphics/tileset.tres" id="1_5qyw5"]
 [ext_resource type="Script" path="res://scripts/smoother.gd" id="1_6aoso"]
@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://snfcte01d77d" path="res://graphics/intellivision.ttf" id="4_7it7d"]
 [ext_resource type="PackedScene" uid="uid://chuvd570kouaj" path="res://entities/ladder.tscn" id="5_cgo2a"]
 [ext_resource type="PackedScene" uid="uid://nilxiexx4lpf" path="res://entities/dot.tscn" id="7_1xske"]
+[ext_resource type="PackedScene" uid="uid://i650wt5rtc1c" path="res://entities/spikes.tscn" id="9_yuefg"]
 
 [node name="Main" type="Node2D"]
 
@@ -31,6 +32,13 @@ position = Vector2(464, 74)
 [node name="Ladder" parent="." instance=ExtResource("5_cgo2a")]
 position = Vector2(118, 40)
 height = 3
+
+[node name="Spikes" parent="." instance=ExtResource("9_yuefg")]
+position = Vector2(200, 152)
+type = "right"
+
+[node name="Spikes2" parent="." instance=ExtResource("9_yuefg")]
+position = Vector2(184, 152)
 
 [node name="Platformer_Player" parent="." instance=ExtResource("2_ueadr")]
 position = Vector2(27, 40)

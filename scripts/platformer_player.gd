@@ -14,6 +14,9 @@ const GRAVITY = 22
 const MAXFALLSPEED = 160;
 const LADDERSPEED = 50;
 
+const ROOMWIDTH = 160;
+const ROOMHEIGHT = 80;
+
 var jumped:bool = false;
 
 var touchingladder = false;
@@ -113,18 +116,18 @@ func _physics_process(_delta):
 func updatecamera():
 	var newroom:Vector2i = position;
 	@warning_ignore("integer_division")
-	newroom.x = int(floor((int(position.x) - (int(position.x) % 160)) / 160));
+	newroom.x = int(floor((int(position.x) - (int(position.x) % ROOMWIDTH)) / ROOMWIDTH));
 	@warning_ignore("integer_division")
-	newroom.y = int(floor((int(position.y) - (int(position.y) % 90)) / 90));
+	newroom.y = int(floor((int(position.y) - (int(position.y) % ROOMHEIGHT)) / ROOMHEIGHT));
 	
 	if(newroom != room):
 		room = newroom;
 		changeroom();
 	
-	camera.limit_left = int(room.x) * 160;
-	camera.limit_top = int(room.y) * 90;
-	camera.limit_right = camera.limit_left + 160;
-	camera.limit_bottom = camera.limit_top + 90;
+	camera.limit_left = int(room.x) * ROOMWIDTH;
+	camera.limit_top = int(room.y) * ROOMHEIGHT;
+	camera.limit_right = camera.limit_left + ROOMWIDTH;
+	camera.limit_bottom = camera.limit_top + ROOMHEIGHT;
 	
 func changeroom():
 	print("changed to room " + str(room))
@@ -136,3 +139,6 @@ func collectcoin():
 func collectdot():
 	Game.score += 10;
 	Game.updateUI();
+	
+func killplayer():
+	queue_free();
