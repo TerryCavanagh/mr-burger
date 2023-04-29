@@ -7,7 +7,6 @@ var turntime:float = 3;
 var time:float = 0;
 
 var startposition:Vector2;
-var movementrange:float = 16 * 5;
 
 var commandlist = [];
 var command = [];
@@ -21,24 +20,25 @@ func _ready():
 		"pace":
 			startposition = position;
 			commandlist = [
-				["moveleft", "left", 3], 
-				["wait", "idle_left", 1], 
-				["moveright", "right", 1], 
-				["wait", "idle_right", 1]
+				["moveleft", "left", 16 * 5, 3], 
+				["wait", "idle_left", 0, 1], 
+				["moveright", "right", 16 * 5, 1], 
+				["wait", "idle_right", 0, 1]
 			];
 			command = commandlist[0];
 			commandindex = 0;
 			Sprite.play(command[1]);
-			time = command[2];
+			time = command[3];
 
 func _physics_process(delta):
 	var cmd:String = command[0];
+	var movementrange:float = command[2];
 	
 	match cmd:
 		"moveleft":
-			position.x = floor(startposition.x - (movementrange * ((command[2] - time) / command[2])));
+			position.x = floor(startposition.x - (movementrange * ((command[3] - time) / command[3])));
 		"moveright":
-			position.x = floor(startposition.x + (movementrange * ((command[2] - time) / command[2])));
+			position.x = floor(startposition.x + (movementrange * ((command[3] - time) / command[3])));
 		"wait":
 			pass;
 	
@@ -47,7 +47,7 @@ func _physics_process(delta):
 		startposition = position;
 		commandindex = (commandindex + 1) % commandlist.size();
 		command = commandlist[commandindex];
-		time = command[2];
+		time = command[3];
 		Sprite.play(command[1]);
 
 func _on_area_2d_body_entered(body):
