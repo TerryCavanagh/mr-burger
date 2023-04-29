@@ -17,6 +17,7 @@ var jumped:bool = false;
 
 var movingdirection:int = 0;
 var facingdirection:int = 1;
+var initialy:float;
 
 func _physics_process(_delta):
 	var onfloor:bool = is_on_floor();
@@ -31,6 +32,7 @@ func _physics_process(_delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("confirm") and onfloor:
 		velocity.y = JUMP_VELOCITY
+		initialy = position.y;
 		jumped = true;
 		onfloor = false;
 		movingdirection = facingdirection;
@@ -51,7 +53,7 @@ func _physics_process(_delta):
 			movingdirection = 0;
 	else:
 		#If you didn't jump, fall straight down
-		if jumped:
+		if jumped and initialy > position.y:
 			movingdirection = facingdirection;
 		else:
 			movingdirection = 0;
