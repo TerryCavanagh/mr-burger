@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bibh5a1pas2yt" path="res://graphics/coin.png" id="1_72mni"]
 [ext_resource type="Script" path="res://scripts/coin.gd" id="1_p3ma0"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_v40xg"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_rn64a"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -21,7 +21,7 @@ size = Vector2(10, 10)
 script = ExtResource("1_p3ma0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_v40xg")
+sprite_frames = SubResource("SpriteFrames_rn64a")
 
 [node name="Area2D" type="Area2D" parent="."]
 

@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 @onready var Sprite = $AnimatedSprite2D;
 @onready var camera:Camera2D = get_node("Camera2D");
+
+@onready var Main = get_parent();
+@onready var Game = Main.get_node("Game");
+
 var room:Vector2i;
 
 const SPEED = 90;
@@ -96,3 +100,11 @@ func updatecamera():
 	
 func changeroom():
 	print("changed to room " + str(room))
+
+func collectcoin():
+	Game.score += 100;
+	Game.updateUI();
+
+func collectdot():
+	Game.score += 10;
+	Game.updateUI();
