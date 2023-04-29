@@ -1,14 +1,24 @@
-[gd_scene format=3 uid="uid://hy1vgy63inhb"]
+[gd_scene load_steps=4 format=3 uid="uid://hy1vgy63inhb"]
+
+[ext_resource type="TileSet" uid="uid://bw4gfq8om3cop" path="res://graphics/tileset.tres" id="1_5qyw5"]
+[ext_resource type="Script" path="res://scripts/smoother.gd" id="1_6aoso"]
+[ext_resource type="PackedScene" uid="uid://2xprjasct382" path="res://scenes/platformer_player.tscn" id="2_ueadr"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Background" type="ColorRect" parent="."]
-offset_right = 80.0
-offset_bottom = 90.0
-color = Color(0.329412, 0.537255, 0, 1)
+[node name="Smoother" type="Node" parent="."]
+script = ExtResource("1_6aoso")
 
-[node name="Background2" type="ColorRect" parent="."]
-offset_left = 80.0
+[node name="Background" type="ColorRect" parent="."]
 offset_right = 160.0
 offset_bottom = 90.0
-color = Color(0.701961, 0.352941, 0.278431, 1)
+color = Color(0.0470588, 0, 0.0196078, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, 26)
+tile_set = ExtResource("1_5qyw5")
+format = 2
+layer_0/tile_data = PackedInt32Array(131074, 0, 0, 131073, 65536, 0, 131075, 0, 0, 131076, 131072, 0, 196611, 131072, 0, 196610, 131072, 0, 196609, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 131077, 131072, 0, 131078, 0, 0, 196615, 131072, 0, 196616, 131072, 0, 196614, 65536, 0, 196613, 65536, 0, 65538, 0, 0, 65539, 0, 0, 196612, 131072, 0, 196617, 131072, 0, 65536, 131072, 0, 65537, 131072, 0, 0, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 2, 0, 0, 1, 0, 0, 3, 0, 0, 4, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 131079, 0, 0, 131080, 65536, 0, 131081, 65536, 0, 65545, 131072, 0, 9, 0, 0, 8, 0, 0, 65544, 131072, 0)
+
+[node name="Platformer_Player" parent="." instance=ExtResource("2_ueadr")]
+position = Vector2(19, 34)
