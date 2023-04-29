@@ -2,6 +2,11 @@ extends Node
 
 @onready var Main = get_parent();
 @onready var UI = Main.get_node("UI");
+@onready var LevelNode = Main.get_node("Level");
+@onready var Player = Main.get_node("Platformer_Player");
+
+var levels:Dictionary = {};
+var currentlevel = "";
 
 var score:int = 0;
 
@@ -9,6 +14,31 @@ func _ready():
 	init();
 	updateUI();
 	
+	preloadlevels();
+	loadlevel("mainlevel");
+	
+func preloadlevels():
+	var dir = DirAccess.open("levels/");
+	
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				var levelname = file_name.split(".")[0];
+				levels[levelname] = load("res://levels/" + file_name);
+			file_name = dir.get_next()
+			
+func loadlevel(newlevel):
+	unloadlevel();
+	currentlevel = newlevel;
+	LevelNode.add_child(levels[currentlevel].instantiate());
+	
+
+func unloadlevel():
+	if(LevelNode.has_node("Level")):
+		LevelNode.remove_child(LevelNode.get_node("Level"));
+
 func init():
 	score = 0;
 	

@@ -15,6 +15,8 @@ const LADDERSPEED = 50;
 const ROOMWIDTH = 160;
 const ROOMHEIGHT = 80;
 
+const ROOMFADETIME = 0.3;
+
 var jumped:bool = false;
 
 var touchingladder = false;
@@ -24,6 +26,7 @@ var initialy:float;
 
 var state:String = "NORMAL";
 var deathtimer:float = 0.0;
+var fadeintime:float = 0.0;
 
 var camerazones:Array = [];
 
@@ -36,9 +39,16 @@ func _physics_process(delta):
 	if state == "REVIVE":
 		deathtimer -= delta;
 		if deathtimer <= 0:
+			deathtimer = 0;
 			state = "NORMAL";
 			Game.cuttowhite();
 	elif state == "NORMAL":
+		if fadeintime > 0:
+			fadeintime -= delta;
+			if fadeintime <= 0:
+				fadeintime = 0;
+				Game.cuttowhite();
+		
 		var onfloor:bool = is_on_floor();
 		
 		if onfloor:
@@ -128,25 +138,31 @@ func _physics_process(delta):
 	elif state == "DEATH":
 		deathtimer -= delta;
 		if deathtimer <= 0:
+			deathtimer = 0;
 			revive();
 
 func movecamera(zone:Rect2):
-	camera.limit_left = int(zone.position.x);
-	camera.limit_top = int(zone.position.y);
-	camera.limit_right = int(zone.position.x + zone.size.x);
-	camera.limit_bottom = int(zone.position.y + zone.size.y);
+	if(zone.position.x != camera.limit_left or zone.position.y != camera.limit_top):
+		Game.cuttoblack();
+		fadeintime = ROOMFADETIME;
+		camera.limit_left = int(zone.position.x);
+		camera.limit_top = int(zone.position.y);
+		camera.limit_right = int(zone.position.x + zone.size.x);
+		camera.limit_bottom = int(zone.position.y + zone.size.y);
 
 func addcamerazone(zone):
 	if !camerazones.has(zone):
 		camerazones.push_back(zone);
 	
-	movecamera(camerazones[camerazones.size() - 1])
+	if camerazones.size() > 0:
+		movecamera(camerazones[camerazones.size() - 1])
 
 func removecamerazone(zone):
 	if camerazones.has(zone):
 		camerazones.erase(zone);
 	
-	movecamera(camerazones[camerazones.size() - 1])
+	if camerazones.size() > 0:
+		movecamera(camerazones[camerazones.size() - 1])
 
 func collectcoin():
 	Game.score += 100;

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh0s7o3d1odd7"]
+
+[ext_resource type="Script" path="res://scripts/smoother.gd" id="1_2t88b"]
+[ext_resource type="Script" path="res://scripts/Game.gd" id="2_81hko"]
+[ext_resource type="FontFile" uid="uid://snfcte01d77d" path="res://graphics/intellivision.ttf" id="3_66v0n"]
+[ext_resource type="PackedScene" uid="uid://2xprjasct382" path="res://scenes/platformer_player.tscn" id="4_6h3wi"]
+
+[node name="Platformer" type="Node2D"]
+
+[node name="Smoother" type="Node" parent="."]
+script = ExtResource("1_2t88b")
+
+[node name="Game" type="Node" parent="."]
+script = ExtResource("2_81hko")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FadeLayer" type="ColorRect" parent="UI"]
+visible = false
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 1)
+
+[node name="Score" type="Label" parent="UI"]
+offset_left = 120.0
+offset_right = 160.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("3_66v0n")
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 2
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Platformer_Player" parent="." instance=ExtResource("4_6h3wi")]
+position = Vector2(27, 40)
