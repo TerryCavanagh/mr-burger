@@ -1,7 +1,23 @@
-[gd_scene load_steps=15 format=3 uid="uid://2xprjasct382"]
+[gd_scene load_steps=21 format=3 uid="uid://2xprjasct382"]
 
 [ext_resource type="Script" path="res://scripts/platformer_player.gd" id="1_f3spc"]
 [ext_resource type="Texture2D" uid="uid://bagno4ejhictw" path="res://graphics/player.png" id="1_us0wu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snsei"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m335s"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sevk"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqvf8"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(192, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_he37x"]
 atlas = ExtResource("1_us0wu")
@@ -10,6 +26,14 @@ region = Rect2(144, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hepxw"]
 atlas = ExtResource("1_us0wu")
 region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_155p0"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0pp1"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(160, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2blgj"]
 atlas = ExtResource("1_us0wu")
@@ -47,6 +71,28 @@ region = Rect2(32, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_snsei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m335s")
+}],
+"loop": true,
+"name": &"climbing_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sevk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqvf8")
+}],
+"loop": true,
+"name": &"climbing_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_he37x")
 }],
 "loop": true,
@@ -59,6 +105,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"fall_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_155p0")
+}],
+"loop": true,
+"name": &"idle_climbing_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0pp1")
+}],
+"loop": true,
+"name": &"idle_climbing_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -124,7 +186,7 @@ script = ExtResource("1_f3spc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tty6d")
-animation = &"idle_right"
+animation = &"climbing_left"
 autoplay = "idle_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

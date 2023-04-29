@@ -12,9 +12,11 @@ const SPEED = 90;
 const JUMP_VELOCITY = -160
 const GRAVITY = 22
 const MAXFALLSPEED = 160;
+const LADDERSPEED = 50;
 
 var jumped:bool = false;
 
+var touchingladder = false;
 var movingdirection:int = 0;
 var facingdirection:int = 1;
 var initialy:float;
@@ -24,23 +26,36 @@ func _physics_process(_delta):
 	
 	if onfloor:
 		jumped = false;
+		velocity.y = 0;
+	elif touchingladder:
+		jumped = false;
+		velocity.y = 0;
 	else:
 		velocity.y += GRAVITY
 		if velocity.y > MAXFALLSPEED:
 			velocity.y = MAXFALLSPEED;
 	
-	# Handle Jump.
-	if Input.is_action_just_pressed("confirm") and onfloor:
+	var pressleft:bool = Input.is_action_pressed("left");
+	var pressright:bool = Input.is_action_pressed("right");
+	var pressup:bool  = Input.is_action_pressed("up");
+	var pressdown:bool  = Input.is_action_pressed("down");
+	
+	# Handle Jump
+	if Input.is_action_just_pressed("confirm") and (onfloor || touchingladder):
 		velocity.y = JUMP_VELOCITY
 		initialy = position.y;
 		jumped = true;
 		onfloor = false;
+		touchingladder = false;
 		movingdirection = facingdirection;
 	
-	var pressleft:bool = Input.is_action_pressed("left");
-	var pressright:bool = Input.is_action_pressed("right");
+	if !jumped && touchingladder:
+		if pressup:
+			velocity.y = -LADDERSPEED;
+		elif pressdown:
+			velocity.y = LADDERSPEED;
 	
-	if onfloor:
+	if onfloor or touchingladder:
 		if pressleft and pressright:
 			movingdirection = 0;
 		elif pressleft:
@@ -64,7 +79,18 @@ func _physics_process(_delta):
 		velocity.x = 0
 		
 	#Animation
-	if !onfloor:
+	if touchingladder:
+		if velocity.y:
+			if facingdirection < 0:
+				Sprite.play("climbing_left");
+			else:
+				Sprite.play("climbing_right");
+		else:
+			if facingdirection < 0:
+				Sprite.play("idle_climbing_left");
+			else:
+				Sprite.play("idle_climbing_right");
+	elif !onfloor:
 		if facingdirection < 0:
 			Sprite.play("jump_left");
 		else:

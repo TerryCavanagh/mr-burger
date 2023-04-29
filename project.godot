@@ -61,6 +61,11 @@ confirm={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="Ladders"
+
 [physics]
 
 common/physics_ticks_per_second=30
