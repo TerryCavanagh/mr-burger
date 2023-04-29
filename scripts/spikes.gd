@@ -16,18 +16,18 @@ func updatespike():
 	$AnimatedSprite2D.play(type);
 	match type:
 		"up":
-			shape.size = Vector2(16, 8);
+			shape.size = Vector2(4, 8);
 			collisionshape.position.x = 0;
 			collisionshape.position.y = 4;
 		"down":
-			shape.size = Vector2(16, 8);
+			shape.size = Vector2(4, 8);
 			collisionshape.position.x = 0;
 			collisionshape.position.y = -4;
 		"left":
-			shape.size = Vector2(8, 14);
+			shape.size = Vector2(8, 4);
 			collisionshape.position.x = 4;
 			collisionshape.position.y = 0;
 		"right":
-			shape.size = Vector2(8, 16);
+			shape.size = Vector2(8, 4);
 			collisionshape.position.x = -4;
 			collisionshape.position.y = 0;

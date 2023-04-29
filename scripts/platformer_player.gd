@@ -6,8 +6,6 @@ extends CharacterBody2D
 @onready var Main = get_parent();
 @onready var Game = Main.get_node("Game");
 
-var room:Vector2i;
-
 const SPEED = 90;
 const JUMP_VELOCITY = -160
 const GRAVITY = 22
@@ -27,13 +25,20 @@ var initialy:float;
 var state:String = "NORMAL";
 var deathtimer:float = 0.0;
 
+var camerazones:Array = [];
+
 var checkpoint:Vector2;
 
 func _ready():
 	checkpoint = position;
 
 func _physics_process(delta):
-	if state == "NORMAL":
+	if state == "REVIVE":
+		deathtimer -= delta;
+		if deathtimer <= 0:
+			state = "NORMAL";
+			Game.cuttowhite();
+	elif state == "NORMAL":
 		var onfloor:bool = is_on_floor();
 		
 		if onfloor:
@@ -120,30 +125,28 @@ func _physics_process(delta):
 					Sprite.play("right");
 			
 		move_and_slide();
-		updatecamera();
 	elif state == "DEATH":
 		deathtimer -= delta;
 		if deathtimer <= 0:
 			revive();
 
-func updatecamera():
-	var newroom:Vector2i = position;
-	@warning_ignore("integer_division")
-	newroom.x = int(floor((int(position.x) - (int(position.x) % ROOMWIDTH)) / ROOMWIDTH));
-	@warning_ignore("integer_division")
-	newroom.y = int(floor((int(position.y) - (int(position.y) % ROOMHEIGHT)) / ROOMHEIGHT));
+func movecamera(zone:Rect2):
+	camera.limit_left = int(zone.position.x);
+	camera.limit_top = int(zone.position.y);
+	camera.limit_right = int(zone.position.x + zone.size.x);
+	camera.limit_bottom = int(zone.position.y + zone.size.y);
+
+func addcamerazone(zone):
+	if !camerazones.has(zone):
+		camerazones.push_back(zone);
 	
-	if(newroom != room):
-		room = newroom;
-		changeroom();
+	movecamera(camerazones[camerazones.size() - 1])
+
+func removecamerazone(zone):
+	if camerazones.has(zone):
+		camerazones.erase(zone);
 	
-	camera.limit_left = int(room.x) * ROOMWIDTH;
-	camera.limit_top = int(room.y) * ROOMHEIGHT;
-	camera.limit_right = camera.limit_left + ROOMWIDTH;
-	camera.limit_bottom = camera.limit_top + ROOMHEIGHT;
-	
-func changeroom():
-	print("changed to room " + str(room))
+	movecamera(camerazones[camerazones.size() - 1])
 
 func collectcoin():
 	Game.score += 100;
@@ -156,7 +159,7 @@ func collectdot():
 func killplayer():
 	if state == "NORMAL":
 		state = "DEATH";
-		deathtimer = 1.5;
+		deathtimer = 1;
 		
 		if facingdirection < 0:
 			Sprite.play("death_left");
@@ -164,10 +167,17 @@ func killplayer():
 			Sprite.play("death_right");
 
 func revive():
+	Game.cuttoblack();
 	position = checkpoint;
+	movingdirection = 0;
+	facingdirection = 1;
+	initialy = position.y;
+	velocity.x = 0; 
+	velocity.y = 0
 	Sprite.play("idle_right");
-	state = "NORMAL";
-		
+	jumped = true;
+	state = "REVIVE";
+	deathtimer = 0.5;
 
 func activatecheckpoint(pos):
 	checkpoint = pos;

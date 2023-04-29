@@ -11,9 +11,9 @@ region = Rect2(16, 0, 16, 16)
 atlas = ExtResource("2_os4f5")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pngfr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy25a"]
 atlas = ExtResource("2_os4f5")
-region = Rect2(48, 0, 16, 16)
+region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kgqua"]
 atlas = ExtResource("2_os4f5")
@@ -39,7 +39,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pngfr")
+"texture": SubResource("AtlasTexture_vy25a")
 }],
 "loop": true,
 "name": &"right",
@@ -55,7 +55,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jp3r6"]
-size = Vector2(16, 8)
+size = Vector2(4, 8)
 
 [node name="Spikes" type="Node2D"]
 position = Vector2(8, 8)

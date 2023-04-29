@@ -14,3 +14,9 @@ func init():
 	
 func updateUI():
 	UI.get_node("Score").text = str(score);
+
+func cuttoblack():
+	UI.get_node("FadeLayer").visible = true;
+
+func cuttowhite():
+	UI.get_node("FadeLayer").visible = false;
