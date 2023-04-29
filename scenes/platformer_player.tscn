@@ -117,9 +117,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jn02"]
-size = Vector2(8, 16)
+size = Vector2(10, 15)
 
-[node name="Platformer_Player" type="CharacterBody2D"]
+[node name="Platformer_Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_f3spc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -128,4 +128,9 @@ animation = &"idle_right"
 autoplay = "idle_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_8jn02")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
