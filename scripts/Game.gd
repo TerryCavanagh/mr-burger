@@ -5,13 +5,17 @@ extends Node
 @onready var LevelNode = Main.get_node("Level");
 @onready var Player = Main.get_node("Platformer_Player");
 
+var hearts:Array = [];
+
 var levels:Dictionary = {};
 var currentlevel = "";
 
+var lives:int = 3;
 var score:int = 0;
 
 func _ready():
 	init();
+	initUI();
 	updateUI();
 	
 	preloadlevels();
@@ -33,7 +37,6 @@ func loadlevel(newlevel):
 	unloadlevel();
 	currentlevel = newlevel;
 	LevelNode.add_child(levels[currentlevel].instantiate());
-	
 
 func unloadlevel():
 	if(LevelNode.has_node("Level")):
@@ -42,8 +45,26 @@ func unloadlevel():
 func init():
 	score = 0;
 	
+func initUI():
+	hearts.push_back(UI.get_node("life1"));
+	hearts.push_back(UI.get_node("life2"));
+	hearts.push_back(UI.get_node("life3"));
+	hearts.push_back(UI.get_node("life4"));
+	hearts.push_back(UI.get_node("life5"));
+	
+	for life in hearts:
+		life.visible = false;
+	
 func updateUI():
 	UI.get_node("Score").text = str(score);
+	
+	for life in hearts:
+		life.visible = false;
+	
+	var i:int = 0;
+	while i < lives:
+		hearts[i].visible = true;
+		i += 1;
 
 func cuttoblack():
 	UI.get_node("FadeLayer").visible = true;

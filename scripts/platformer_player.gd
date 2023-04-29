@@ -16,6 +16,7 @@ const ROOMWIDTH = 160;
 const ROOMHEIGHT = 80;
 
 const ROOMFADETIME = 0.3;
+const ROOMFADETIME_AFTERDEATH = 0.5;
 
 var jumped:bool = false;
 
@@ -184,16 +185,24 @@ func killplayer():
 
 func revive():
 	Game.cuttoblack();
-	position = checkpoint;
-	movingdirection = 0;
-	facingdirection = 1;
-	initialy = position.y;
-	velocity.x = 0; 
-	velocity.y = 0
-	Sprite.play("idle_right");
-	jumped = true;
-	state = "REVIVE";
-	deathtimer = 0.5;
+	
+	Game.lives -= 1;
+	Game.updateUI();
+	
+	if Game.lives <= 0:
+		await get_tree().create_timer(0.5).timeout
+		get_tree().change_scene_to_file("res://scenes/Gameover.tscn");
+	else:
+		position = checkpoint;
+		movingdirection = 0;
+		facingdirection = 1;
+		initialy = position.y;
+		velocity.x = 0; 
+		velocity.y = 0
+		Sprite.play("idle_right");
+		jumped = true;
+		state = "REVIVE";
+		deathtimer = ROOMFADETIME_AFTERDEATH;
 
 func activatecheckpoint(pos):
 	checkpoint = pos;
