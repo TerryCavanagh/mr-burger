@@ -71,3 +71,6 @@ func cuttoblack():
 
 func cuttowhite():
 	UI.get_node("FadeLayer").visible = false;
+
+func revive():
+	get_tree().call_group("disapperingplatform", "reset");

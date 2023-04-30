@@ -134,7 +134,7 @@ func _physics_process(delta):
 					Sprite.play("left");
 				elif facingdirection > 0:
 					Sprite.play("right");
-			
+		
 		move_and_slide();
 	elif state == "DEATH":
 		deathtimer -= delta;
@@ -193,6 +193,7 @@ func revive():
 		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file("res://scenes/Gameover.tscn");
 	else:
+		Game.revive();
 		position = checkpoint;
 		movingdirection = 0;
 		facingdirection = 1;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dh2xonatbq3hs"]
+[gd_scene load_steps=14 format=3 uid="uid://dh2xonatbq3hs"]
 
 [ext_resource type="TileSet" uid="uid://bw4gfq8om3cop" path="res://graphics/tileset.tres" id="1_scelq"]
 [ext_resource type="PackedScene" uid="uid://bm5as1wlcnnaf" path="res://entities/coin.tscn" id="2_ooqx7"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/CameraRegions.gd" id="7_teh3u"]
 [ext_resource type="PackedScene" uid="uid://b17e5w1atj1sf" path="res://entities/enemy.tscn" id="9_25ccb"]
 [ext_resource type="PackedScene" uid="uid://kjf3xse0xfw" path="res://entities/fence2.tscn" id="9_blns7"]
+[ext_resource type="PackedScene" uid="uid://pxi5fa0gjob8" path="res://entities/disappearing_platform.tscn" id="10_8qxs7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rla33"]
 size = Vector2(160, 90)
@@ -112,6 +113,12 @@ position = Vector2(133, 136)
 
 [node name="Enemy" parent="." instance=ExtResource("9_25ccb")]
 position = Vector2(281, 56)
+
+[node name="Disappearing Platform" parent="." instance=ExtResource("10_8qxs7")]
+position = Vector2(40, 56)
+
+[node name="Disappearing Platform2" parent="." instance=ExtResource("10_8qxs7")]
+position = Vector2(56, 56)
 
 [connection signal="body_entered" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_entered"]
 [connection signal="body_exited" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_exited"]

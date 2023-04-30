@@ -1,15 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh0s7o3d1odd7"]
+[gd_scene load_steps=5 format=3 uid="uid://dh0s7o3d1odd7"]
 
-[ext_resource type="Script" path="res://scripts/smoother.gd" id="1_2t88b"]
 [ext_resource type="Script" path="res://scripts/Game.gd" id="2_81hko"]
 [ext_resource type="FontFile" uid="uid://snfcte01d77d" path="res://graphics/intellivision.ttf" id="3_66v0n"]
 [ext_resource type="Texture2D" uid="uid://c4x17tykab3ha" path="res://graphics/heart.png" id="3_d0iso"]
 [ext_resource type="PackedScene" uid="uid://2xprjasct382" path="res://scenes/platformer_player.tscn" id="4_6h3wi"]
 
 [node name="Platformer" type="Node2D"]
-
-[node name="Smoother" type="Node" parent="."]
-script = ExtResource("1_2t88b")
 
 [node name="Game" type="Node" parent="."]
 script = ExtResource("2_81hko")
@@ -58,4 +54,4 @@ offset = Vector2(64, 0)
 [node name="Level" type="Node2D" parent="."]
 
 [node name="Platformer_Player" parent="." instance=ExtResource("4_6h3wi")]
-position = Vector2(27, 40)
+position = Vector2(19, 40)
