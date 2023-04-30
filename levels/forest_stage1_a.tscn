@@ -34,6 +34,7 @@ position = Vector2(424, 56)
 height = 7
 
 [node name="CameraRegions" type="Node2D" parent="."]
+visible = false
 
 [node name="CameraZone" type="Area2D" parent="CameraRegions"]
 script = ExtResource("4_kuwol")
@@ -154,7 +155,7 @@ position = Vector2(104, 153)
 position = Vector2(135, 153)
 
 [node name="Enemy" parent="." instance=ExtResource("10_bpeqe")]
-position = Vector2(281, 168)
+position = Vector2(280, 168)
 
 [connection signal="body_entered" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_entered"]
 [connection signal="body_exited" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_exited"]

@@ -6,8 +6,6 @@ var direction:int = -1;
 var turntime:float = 3;
 var time:float = 0;
 
-var startposition:Vector2;
-
 var commandlist = [];
 var command = [];
 var commandindex:int = 0;
@@ -16,38 +14,42 @@ var state:int = 0;
 
 func _ready():
 	Sprite = get_node("Animations/slime");
+	# 0: command
+	# 1: animation
+	# 2: speed
+	# 3: distance
 	match aistyle:
 		"pace":
-			startposition = position;
 			commandlist = [
-				["moveleft", "left", 16 * 5, 1], 
-				["wait", "idle_left", 0, 0.5], 
-				["moveright", "right", 16 * 5, 1], 
-				["wait", "idle_right", 0, 0.5]
+				["left", "left", 2, 16 * 5], 
+				#["wait", "idle_left", 1, 10], 
+				["right", "right", 2, 16 * 5]#,
+				#["wait", "idle_right", 1, 10]
 			];
 			command = commandlist[0];
 			commandindex = 0;
 			Sprite.play(command[1]);
 			time = command[3];
+			time = int(floor(time / command[2]));
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var cmd:String = command[0];
-	var movementrange:float = command[2];
+	var movementspeed:float = command[2];
 	
 	match cmd:
-		"moveleft":
-			position.x = floor(startposition.x - (movementrange * ((command[3] - time) / command[3])));
-		"moveright":
-			position.x = floor(startposition.x + (movementrange * ((command[3] - time) / command[3])));
+		"left":
+			position.x = position.x - movementspeed;
+		"right":
+			position.x = position.x + movementspeed;
 		"wait":
 			pass;
 	
-	time -= delta;
+	time -= 1;
 	if time <= 0:
-		startposition = position;
 		commandindex = (commandindex + 1) % commandlist.size();
 		command = commandlist[commandindex];
 		time = command[3];
+		time = int(floor(time / command[2]));
 		Sprite.play(command[1]);
 
 func stopenemy():
