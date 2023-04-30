@@ -28,6 +28,8 @@ var initialy:float;
 var state:String = "NORMAL";
 var deathtimer:float = 0.0;
 var fadeintime:float = 0.0;
+var treadmillforce:float = 0.0;
+var treadmills:Array = [];
 
 var camerazones:Array = [];
 
@@ -105,6 +107,10 @@ func _physics_process(delta):
 			velocity.x = movingdirection * SPEED
 		else:
 			velocity.x = 0
+		
+		updatetreadmillforces();
+		if treadmillforce && onfloor:
+			velocity.x += treadmillforce;
 			
 		#Animation
 		if touchingladder:
@@ -207,3 +213,18 @@ func revive():
 
 func activatecheckpoint(pos):
 	checkpoint = pos;
+
+func updatetreadmillforces():
+	if treadmills.size() > 0:
+		treadmillforce = treadmills[treadmills.size() - 1].force * treadmills[treadmills.size() - 1].direction;
+		return;
+		
+	treadmillforce = 0;
+	
+func addtreadmill(treadmill):
+	if !treadmills.has(treadmill):
+		treadmills.push_back(treadmill);
+	
+func removetreadmill(treadmill):
+	if treadmills.has(treadmill):
+		treadmills.erase(treadmill);
