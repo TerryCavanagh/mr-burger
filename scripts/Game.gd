@@ -21,7 +21,8 @@ func _ready():
 	updateUI();
 	
 	preloadlevels();
-	loadlevel("factory", "stage1");
+	#loadlevel("factory", "stage1");
+	loadlevel("forest", "stage1");
 	#loadlevel("testlevel", "testlevel")
 	
 func preloadlevels():

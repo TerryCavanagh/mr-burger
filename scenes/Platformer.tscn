@@ -20,9 +20,10 @@ offset_bottom = 90.0
 color = Color(0, 0, 0, 1)
 
 [node name="Score" type="Label" parent="UI"]
-offset_left = 120.0
-offset_right = 160.0
-offset_bottom = 23.0
+offset_left = 118.0
+offset_top = 2.0
+offset_right = 158.0
+offset_bottom = 25.0
 theme_override_fonts/font = ExtResource("3_66v0n")
 theme_override_font_sizes/font_size = 8
 text = "0"

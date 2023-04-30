@@ -2,7 +2,7 @@ extends Node2D
 
 var Sprite = null;
 var direction:int = -1;
-var aistyle:String = "pace";
+@export var aistyle:String = "pace";
 var turntime:float = 3;
 var time:float = 0;
 
@@ -20,10 +20,10 @@ func _ready():
 		"pace":
 			startposition = position;
 			commandlist = [
-				["moveleft", "left", 16 * 5, 3], 
-				["wait", "idle_left", 0, 1], 
+				["moveleft", "left", 16 * 5, 1], 
+				["wait", "idle_left", 0, 0.5], 
 				["moveright", "right", 16 * 5, 1], 
-				["wait", "idle_right", 0, 1]
+				["wait", "idle_right", 0, 0.5]
 			];
 			command = commandlist[0];
 			commandindex = 0;
