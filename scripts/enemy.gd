@@ -3,6 +3,8 @@ extends Node2D
 var Sprite = null;
 var direction:int = -1;
 @export var aistyle:String = "pace";
+@export var movespeed:int = 1;
+@export var image:String = "slime";
 var turntime:float = 3;
 var time:float = 0;
 
@@ -13,7 +15,8 @@ var commandindex:int = 0;
 var state:int = 0;
 
 func _ready():
-	Sprite = get_node("Animations/slime");
+	Sprite = get_node("Animations/" + image);
+	Sprite.visible = true;
 	# 0: command
 	# 1: animation
 	# 2: speed
@@ -21,9 +24,9 @@ func _ready():
 	match aistyle:
 		"pace":
 			commandlist = [
-				["left", "left", 2, 16 * 5], 
+				["left", "left", movespeed, 16 * 5], 
 				#["wait", "idle_left", 1, 10], 
-				["right", "right", 2, 16 * 5]#,
+				["right", "right", movespeed, 16 * 5]#,
 				#["wait", "idle_right", 1, 10]
 			];
 			command = commandlist[0];

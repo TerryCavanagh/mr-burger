@@ -156,6 +156,7 @@ position = Vector2(135, 153)
 
 [node name="Enemy" parent="." instance=ExtResource("10_bpeqe")]
 position = Vector2(280, 168)
+movespeed = 2
 
 [connection signal="body_entered" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_entered"]
 [connection signal="body_exited" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_exited"]

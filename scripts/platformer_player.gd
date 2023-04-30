@@ -153,7 +153,7 @@ func _physics_process(delta):
 			velocity.x += treadmillforce;
 			
 		#Animation
-		if swimming:
+		if swimming and !onfloor:
 			if facingdirection < 0:
 				Sprite.play("swimming_left");
 			else:

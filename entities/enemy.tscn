@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b17e5w1atj1sf"]
+[gd_scene load_steps=15 format=3 uid="uid://b17e5w1atj1sf"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_q12eh"]
 [ext_resource type="Texture2D" uid="uid://dij54h1lycc3a" path="res://graphics/enemy_slime.png" id="2_bkap7"]
+[ext_resource type="Texture2D" uid="uid://cljfmp3xaad28" path="res://graphics/enemy_crab.png" id="3_f8sld"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ue0u"]
 size = Vector2(14, 8)
@@ -87,6 +88,77 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfh31"]
+atlas = ExtResource("3_f8sld")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rimsh"]
+atlas = ExtResource("3_f8sld")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u8afd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfh31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfh31")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfh31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfh31")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_df6aw")
+}],
+"loop": true,
+"name": &"jump_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ku0c1")
+}],
+"loop": true,
+"name": &"jump_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rimsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfh31")
+}],
+"loop": true,
+"name": &"left",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rimsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfh31")
+}],
+"loop": true,
+"name": &"right",
+"speed": 3.0
+}]
+
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_q12eh")
 
@@ -99,9 +171,16 @@ shape = SubResource("RectangleShape2D_3ue0u")
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="slime" type="AnimatedSprite2D" parent="Animations"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_8p1o4")
 animation = &"right"
 autoplay = "left"
 frame_progress = 0.345074
+
+[node name="crab" type="AnimatedSprite2D" parent="Animations"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_u8afd")
+animation = &"idle_left"
+autoplay = "left"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
