@@ -50,8 +50,15 @@ func _physics_process(delta):
 		time = command[3];
 		Sprite.play(command[1]);
 
+func stopenemy():
+	commandlist = [
+		["wait", command[1], 0, 100]
+	];
+	command = commandlist[0];
+
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
 		body.killplayer();
+		stopenemy();
 		await get_tree().create_timer(1.0).timeout
 		queue_free();

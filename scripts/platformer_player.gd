@@ -31,6 +31,9 @@ var fadeintime:float = 0.0;
 var treadmillforce:float = 0.0;
 var treadmills:Array = [];
 
+var waterzones:Array = [];
+var inwater:bool = false;
+
 var camerazones:Array = [];
 
 var grabbedrope:bool = false;
@@ -76,6 +79,12 @@ func _physics_process(delta):
 		var pressup:bool  = Input.is_action_pressed("up");
 		var pressdown:bool  = Input.is_action_pressed("down");
 		
+		checkinwater();
+		if inwater:
+			grabbedrope = true;
+		else:
+			grabbedrope = false;
+		
 		# Handle Jump
 		if Input.is_action_just_pressed("confirm") and (onfloor || touchingladder || grabbedrope):
 			velocity.y = JUMP_VELOCITY
@@ -86,7 +95,7 @@ func _physics_process(delta):
 			releaserope();
 			movingdirection = facingdirection;
 		
-		if !jumped && touchingladder:
+		if !jumped && (touchingladder || grabbedrope):
 			if pressup:
 				velocity.y = -LADDERSPEED;
 			elif pressdown:
@@ -235,6 +244,21 @@ func addtreadmill(treadmill):
 func removetreadmill(treadmill):
 	if treadmills.has(treadmill):
 		treadmills.erase(treadmill);
+
+func addwaterzone(waterzone):
+	if !waterzones.has(waterzone):
+		waterzones.push_back(waterzone);
+	
+func removewaterzone(waterzone):
+	if waterzones.has(waterzone):
+		waterzones.erase(waterzone);
+
+func checkinwater():
+	if waterzones.size() > 0:
+		inwater = true;
+		return;
+		
+	inwater = false;
 
 func grabrope(_rope):
 	grabbedrope = true;

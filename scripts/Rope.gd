@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var shape = $Area2D/CollisionShape2D;
+
 @export var ropelength:int = 48;
 
 #number between 0-36000
@@ -7,7 +9,9 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	shape.shape.size = Vector2(4, ropelength);
+	@warning_ignore("integer_division")
+	shape.position.y = int(floor(ropelength / 2));
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
