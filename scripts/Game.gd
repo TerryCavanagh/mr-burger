@@ -22,8 +22,9 @@ func _ready():
 	
 	preloadlevels();
 	#loadlevel("factory", "stage1");
+	loadlevel("dungeon", "stage1");
 	#loadlevel("forest", "stage1");
-	loadlevel("beach", "stage1");
+	#loadlevel("beach", "stage1");
 	#loadlevel("testlevel", "testlevel")
 	
 func preloadlevels():

@@ -29,11 +29,19 @@ func _ready():
 				["right", "right", movespeed, 16 * 5]#,
 				#["wait", "idle_right", 1, 10]
 			];
-			command = commandlist[0];
-			commandindex = 0;
-			Sprite.play(command[1]);
-			time = command[3];
-			time = int(floor(time / command[2]));
+		"bounce":
+			commandlist = [
+				["up", "left", movespeed, 16 * 3], 
+				#["wait", "idle_left", 1, 10], 
+				["down", "right", movespeed, 16 * 3]#,
+				#["wait", "idle_right", 1, 10]
+			];
+			
+	command = commandlist[0];
+	commandindex = 0;
+	Sprite.play(command[1]);
+	time = command[3];
+	time = int(floor(time / command[2]));
 
 func _physics_process(_delta):
 	var cmd:String = command[0];
@@ -44,6 +52,10 @@ func _physics_process(_delta):
 			position.x = position.x - movementspeed;
 		"right":
 			position.x = position.x + movementspeed;
+		"up":
+			position.y = position.y - movementspeed;
+		"down":
+			position.y = position.y + movementspeed;
 		"wait":
 			pass;
 	

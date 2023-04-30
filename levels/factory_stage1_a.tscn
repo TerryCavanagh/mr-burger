@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://gokeiguqhskd"]
+[gd_scene load_steps=11 format=3 uid="uid://gokeiguqhskd"]
 
 [ext_resource type="TileSet" uid="uid://bw4gfq8om3cop" path="res://graphics/tileset.tres" id="1_r7r8j"]
 [ext_resource type="PackedScene" uid="uid://nilxiexx4lpf" path="res://entities/dot.tscn" id="2_akbxk"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jn5ib"]
 size = Vector2(160, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63f1d"]
+size = Vector2(320, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7vom"]
 size = Vector2(240, 14.5)
@@ -69,16 +72,8 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_ap02d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/CameraZone2"]
-position = Vector2(240, 45)
-shape = SubResource("RectangleShape2D_jn5ib")
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
-
-[node name="CameraZone3" type="Area2D" parent="CameraRegions"]
-script = ExtResource("3_ap02d")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/CameraZone3"]
-position = Vector2(400, 45)
-shape = SubResource("RectangleShape2D_jn5ib")
+position = Vector2(320, 45)
+shape = SubResource("RectangleShape2D_63f1d")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="CameraZone4" type="Area2D" parent="CameraRegions"]
@@ -109,8 +104,6 @@ shape = SubResource("RectangleShape2D_uyp38")
 [connection signal="body_exited" from="CameraRegions/CameraZone" to="CameraRegions/CameraZone" method="_on_body_exited"]
 [connection signal="body_entered" from="CameraRegions/CameraZone2" to="CameraRegions/CameraZone2" method="_on_body_entered"]
 [connection signal="body_exited" from="CameraRegions/CameraZone2" to="CameraRegions/CameraZone2" method="_on_body_exited"]
-[connection signal="body_entered" from="CameraRegions/CameraZone3" to="CameraRegions/CameraZone3" method="_on_body_entered"]
-[connection signal="body_exited" from="CameraRegions/CameraZone3" to="CameraRegions/CameraZone3" method="_on_body_exited"]
 [connection signal="body_entered" from="CameraRegions/CameraZone4" to="CameraRegions/CameraZone4" method="_on_body_entered"]
 [connection signal="body_exited" from="CameraRegions/CameraZone4" to="CameraRegions/CameraZone4" method="_on_body_exited"]
 [connection signal="body_entered" from="Dangerzones/Lava" to="Dangerzones/Lava" method="_on_body_entered"]

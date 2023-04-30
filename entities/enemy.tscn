@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b17e5w1atj1sf"]
+[gd_scene load_steps=17 format=3 uid="uid://b17e5w1atj1sf"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_q12eh"]
 [ext_resource type="Texture2D" uid="uid://dij54h1lycc3a" path="res://graphics/enemy_slime.png" id="2_bkap7"]
 [ext_resource type="Texture2D" uid="uid://cljfmp3xaad28" path="res://graphics/enemy_crab.png" id="3_f8sld"]
+[ext_resource type="Texture2D" uid="uid://c037c3mk3kbhb" path="res://graphics/enemy_face.png" id="4_1j500"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ue0u"]
 size = Vector2(14, 8)
@@ -92,8 +93,12 @@ animations = [{
 atlas = ExtResource("3_f8sld")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rimsh"]
-atlas = ExtResource("3_f8sld")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qemdd"]
+atlas = ExtResource("4_1j500")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85i5o"]
+atlas = ExtResource("4_1j500")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u8afd"]
@@ -138,10 +143,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rimsh")
+"texture": SubResource("AtlasTexture_qemdd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cfh31")
+"texture": SubResource("AtlasTexture_85i5o")
 }],
 "loop": true,
 "name": &"left",
@@ -149,10 +154,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rimsh")
+"texture": SubResource("AtlasTexture_qemdd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cfh31")
+"texture": SubResource("AtlasTexture_85i5o")
 }],
 "loop": true,
 "name": &"right",
@@ -181,6 +186,12 @@ frame_progress = 0.345074
 visible = false
 sprite_frames = SubResource("SpriteFrames_u8afd")
 animation = &"idle_left"
+autoplay = "left"
+
+[node name="face" type="AnimatedSprite2D" parent="Animations"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_u8afd")
+animation = &"right"
 autoplay = "left"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
