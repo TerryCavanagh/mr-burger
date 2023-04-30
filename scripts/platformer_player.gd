@@ -214,6 +214,10 @@ func collectcoin():
 	Game.score += 100;
 	Game.updateUI();
 
+func collectkey():
+	Game.keys += 1;
+	Game.updateUI();
+
 func collectdot():
 	Game.score += 10;
 	Game.updateUI();
