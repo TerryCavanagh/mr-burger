@@ -10,7 +10,9 @@ const SPEED = 90;
 const JUMP_VELOCITY = -160
 const GRAVITY = 22
 const MAXFALLSPEED = 160;
+const WATERFALLSPEED = 60;
 const LADDERSPEED = 50;
+const SWIMMINGSPEED = 60;
 
 const ROOMWIDTH = 160;
 const ROOMHEIGHT = 80;
@@ -32,6 +34,7 @@ var treadmillforce:float = 0.0;
 var treadmills:Array = [];
 
 var waterzones:Array = [];
+var swimming:bool = false;
 var inwater:bool = false;
 
 var camerazones:Array = [];
@@ -59,8 +62,18 @@ func _physics_process(delta):
 				Game.cuttowhite();
 		
 		var onfloor:bool = is_on_floor();
+		checkinwater();
 		
-		if onfloor:
+		swimming = false;
+		
+		if inwater:
+			swimming = true;
+			@warning_ignore("integer_division")
+			velocity.y += GRAVITY / 3;
+			
+			if velocity.y > WATERFALLSPEED:
+				velocity.y = WATERFALLSPEED;
+		elif onfloor:
 			jumped = false;
 			velocity.y = 0;
 		elif touchingladder:
@@ -79,21 +92,26 @@ func _physics_process(delta):
 		var pressup:bool  = Input.is_action_pressed("up");
 		var pressdown:bool  = Input.is_action_pressed("down");
 		
-		checkinwater();
-		if inwater:
-			grabbedrope = true;
-		else:
-			grabbedrope = false;
-		
 		# Handle Jump
-		if Input.is_action_just_pressed("confirm") and (onfloor || touchingladder || grabbedrope):
-			velocity.y = JUMP_VELOCITY
-			initialy = position.y;
-			jumped = true;
-			onfloor = false;
-			touchingladder = false;
-			releaserope();
-			movingdirection = facingdirection;
+		if Input.is_action_just_pressed("confirm"):
+			if (onfloor || touchingladder || grabbedrope) && !swimming:
+				velocity.y = JUMP_VELOCITY
+				initialy = position.y;
+				jumped = true;
+				onfloor = false;
+				touchingladder = false;
+				releaserope();
+				movingdirection = facingdirection;
+			elif swimming:
+				@warning_ignore("integer_division")
+				velocity.y = JUMP_VELOCITY / 2
+				initialy = position.y;
+				jumped = true;
+				onfloor = false;
+				touchingladder = false;
+				releaserope();
+				movingdirection = facingdirection;
+				
 		
 		if !jumped && (touchingladder || grabbedrope):
 			if pressup:
@@ -101,7 +119,7 @@ func _physics_process(delta):
 			elif pressdown:
 				velocity.y = LADDERSPEED;
 		
-		if onfloor or touchingladder or grabbedrope:
+		if onfloor or touchingladder or grabbedrope or swimming:
 			if pressleft and pressright:
 				movingdirection = 0;
 			elif pressleft:
@@ -129,7 +147,12 @@ func _physics_process(delta):
 			velocity.x += treadmillforce;
 			
 		#Animation
-		if touchingladder || grabbedrope:
+		if swimming:
+			if facingdirection < 0:
+				Sprite.play("swimming_left");
+			else:
+				Sprite.play("swimming_right");
+		elif touchingladder || grabbedrope:
 			if velocity.y:
 				if facingdirection < 0:
 					Sprite.play("climbing_left");

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://2xprjasct382"]
+[gd_scene load_steps=31 format=3 uid="uid://2xprjasct382"]
 
 [ext_resource type="Script" path="res://scripts/platformer_player.gd" id="1_f3spc"]
 [ext_resource type="Texture2D" uid="uid://bagno4ejhictw" path="res://graphics/player.png" id="1_us0wu"]
@@ -98,6 +98,14 @@ region = Rect2(16, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wppa1"]
 atlas = ExtResource("1_us0wu")
 region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1gv7"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bb6f8"]
+atlas = ExtResource("1_us0wu")
+region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tty6d"]
 animations = [{
@@ -242,6 +250,22 @@ animations = [{
 "loop": true,
 "name": &"right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1gv7")
+}],
+"loop": true,
+"name": &"swimming_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bb6f8")
+}],
+"loop": true,
+"name": &"swimming_right",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jn02"]
@@ -252,7 +276,7 @@ script = ExtResource("1_f3spc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tty6d")
-animation = &"death_left"
+animation = &"swimming_right"
 autoplay = "idle_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
