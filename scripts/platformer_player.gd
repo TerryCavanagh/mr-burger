@@ -33,6 +33,9 @@ var treadmills:Array = [];
 
 var camerazones:Array = [];
 
+var grabbedrope:bool = false;
+var rope:Node2D = null;
+
 var checkpoint:Vector2;
 
 func _ready():
@@ -60,6 +63,9 @@ func _physics_process(delta):
 		elif touchingladder:
 			jumped = false;
 			velocity.y = 0;
+		elif grabbedrope:
+			jumped = false;
+			velocity.y = 0;
 		else:
 			velocity.y += GRAVITY
 			if velocity.y > MAXFALLSPEED:
@@ -71,12 +77,13 @@ func _physics_process(delta):
 		var pressdown:bool  = Input.is_action_pressed("down");
 		
 		# Handle Jump
-		if Input.is_action_just_pressed("confirm") and (onfloor || touchingladder):
+		if Input.is_action_just_pressed("confirm") and (onfloor || touchingladder || grabbedrope):
 			velocity.y = JUMP_VELOCITY
 			initialy = position.y;
 			jumped = true;
 			onfloor = false;
 			touchingladder = false;
+			releaserope();
 			movingdirection = facingdirection;
 		
 		if !jumped && touchingladder:
@@ -85,7 +92,7 @@ func _physics_process(delta):
 			elif pressdown:
 				velocity.y = LADDERSPEED;
 		
-		if onfloor or touchingladder:
+		if onfloor or touchingladder or grabbedrope:
 			if pressleft and pressright:
 				movingdirection = 0;
 			elif pressleft:
@@ -113,7 +120,7 @@ func _physics_process(delta):
 			velocity.x += treadmillforce;
 			
 		#Animation
-		if touchingladder:
+		if touchingladder || grabbedrope:
 			if velocity.y:
 				if facingdirection < 0:
 					Sprite.play("climbing_left");
@@ -228,3 +235,12 @@ func addtreadmill(treadmill):
 func removetreadmill(treadmill):
 	if treadmills.has(treadmill):
 		treadmills.erase(treadmill);
+
+func grabrope(_rope):
+	grabbedrope = true;
+	rope = _rope
+	
+func releaserope():
+	grabbedrope = false;
+	rope = null
+	
