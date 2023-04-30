@@ -2,6 +2,9 @@ extends Node2D
 
 var currentcheckpoint:bool = false;
 
+func showcheckpoints():
+	$AnimatedSprite2D.visible = true;
+
 func deactivate():
 	$AnimatedSprite2D.play("ready");
 

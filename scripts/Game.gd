@@ -21,7 +21,8 @@ func _ready():
 	updateUI();
 	
 	preloadlevels();
-	loadlevel("mainlevel");
+	loadlevel("factory", "stage1");
+	#loadlevel("testlevel", "testlevel")
 	
 func preloadlevels():
 	var dir = DirAccess.open("levels/");
@@ -35,10 +36,11 @@ func preloadlevels():
 				levels[levelname] = load("res://levels/" + file_name);
 			file_name = dir.get_next()
 			
-func loadlevel(newlevel):
+func loadlevel(stage, newlevel):
 	unloadlevel();
 	currentlevel = newlevel;
-	LevelNode.add_child(levels[currentlevel].instantiate());
+	var version:String = "a";
+	LevelNode.add_child(levels[stage + "_" + currentlevel + "_" + version].instantiate());
 
 func unloadlevel():
 	if(LevelNode.has_node("Level")):

@@ -17,7 +17,7 @@ const SWIMMINGSPEED = 60;
 const ROOMWIDTH = 160;
 const ROOMHEIGHT = 80;
 
-const ROOMFADETIME = 0.3;
+const ROOMFADETIME = 0.0;
 const ROOMFADETIME_AFTERDEATH = 0.5;
 
 var jumped:bool = false;
@@ -45,8 +45,14 @@ var rope:Node2D = null;
 var checkpoint:Vector2;
 
 func _ready():
-	checkpoint = position;
-
+	var checkpoints = get_tree().get_nodes_in_group("checkpoints");
+	
+	checkpoint = position; #fallback
+	if checkpoints != null:
+		if checkpoints.size() > 0:
+			checkpoint = checkpoints[0].position;
+			position = checkpoint;
+	
 func _physics_process(delta):
 	if state == "REVIVE":
 		deathtimer -= delta;
@@ -189,8 +195,9 @@ func _physics_process(delta):
 
 func movecamera(zone:Rect2):
 	if(zone.position.x != camera.limit_left or zone.position.y != camera.limit_top):
-		Game.cuttoblack();
-		fadeintime = ROOMFADETIME;
+		if ROOMFADETIME > 0.0:
+			Game.cuttoblack();
+			fadeintime = ROOMFADETIME;
 		camera.limit_left = int(zone.position.x);
 		camera.limit_top = int(zone.position.y);
 		camera.limit_right = int(zone.position.x + zone.size.x);
@@ -294,4 +301,10 @@ func grabrope(_rope):
 func releaserope():
 	grabbedrope = false;
 	rope = null
+
+func victory():
+	Game.cuttoblack();
+	
+	await get_tree().create_timer(0.5).timeout
+	get_tree().change_scene_to_file("res://scenes/Gameover.tscn");
 	
