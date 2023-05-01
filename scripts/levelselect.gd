@@ -197,4 +197,6 @@ func movecursor(index):
 	cursor.position = getindexposition(index);
 
 func startlevel():
-	print("starting a new " + str(World.levelgrid[World.cursorposition]) + " stage")
+	World.nextstage = World.levelgrid[World.cursorposition];
+	World.nextlevel = "stage1";
+	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");

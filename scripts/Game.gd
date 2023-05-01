@@ -8,14 +8,7 @@ extends Node
 var hearts:Array = [];
 var keygfx:Array = [];
 
-var levelsloaded:bool = false;
-var levels:Dictionary = {};
 var currentlevel = "";
-
-var lives:int = 3;
-var keys:int = 0;
-var score:int = 0;
-var ordernumber:int = 1;
 
 var preventmovement:bool = false;
 
@@ -26,16 +19,7 @@ func _ready():
 	initUI();
 	updateUI();
 	
-	if !levelsloaded:
-		preloadlevels();
-	loadlevel("mrburger", "stage1");
-	
-	#loadlevel("factory", "stage1");
-	#loadlevel("dungeon", "stage1");
-	#loadlevel("forest", "stage1");
-	#loadlevel("beach", "stage1");
-	
-	#loadlevel("testlevel", "testlevel")
+	loadlevel(World.nextstage, World.nextlevel);
 	
 func _process(delta):
 	if messagetime > 0:
@@ -47,33 +31,19 @@ func _process(delta):
 			if Input.is_action_just_pressed("confirm"):
 				messagetime = 0;
 				hidemessage();
-	
-func preloadlevels():
-	var dir = DirAccess.open("levels/");
-	
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if !dir.current_is_dir():
-				var levelname = file_name.split(".")[0];
-				levels[levelname] = load("res://levels/" + file_name);
-			file_name = dir.get_next()
-			
+
 func loadlevel(stage, newlevel):
 	unloadlevel();
 	currentlevel = newlevel;
 	var version:String = "a";
-	LevelNode.add_child(levels[stage + "_" + currentlevel + "_" + version].instantiate());
+	LevelNode.add_child(World.levels[stage + "_" + currentlevel + "_" + version].instantiate());
 
 func unloadlevel():
 	if(LevelNode.has_node("Level")):
 		LevelNode.remove_child(LevelNode.get_node("Level"));
 
 func init():
-	score = 0;
-	keys = 0;
-	lives = 3;
+	GameGlobal.newgame();
 	World.reset();
 	preventmovement = false;
 	
@@ -97,13 +67,13 @@ func initUI():
 		k.visible = false;
 	
 func updateUI():
-	UI.get_node("Score").text = str(score);
+	UI.get_node("Score").text = str(GameGlobal.score);
 	
 	for life in hearts:
 		life.visible = false;
 	
 	var i:int = 0;
-	while i < lives:
+	while i < GameGlobal.lives:
 		if i < 5:
 			hearts[i].visible = true;
 		i += 1;
@@ -112,7 +82,7 @@ func updateUI():
 		k.visible = false;
 	
 	var j:int = 0;
-	while j < keys:
+	while j < GameGlobal.keys:
 		if j < 5:
 			keygfx[j].visible = true;
 		j += 1;

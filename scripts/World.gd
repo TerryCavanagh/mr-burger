@@ -1,10 +1,26 @@
 extends Node
 
+var nextstage:String;
+var nextlevel:String;
+var levels:Dictionary = {};
+
 var levelgrid:Array = ["question", "question", "house", "question", "question", "question", "burger", "question", "question"];
 var fog:Array = [true, true, false, true, true, true, false, true, true];
 
 var playerposition:int;
 var cursorposition:int;
+
+func preloadlevels():
+	var dir = DirAccess.open("levels/");
+	
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				var levelname = file_name.split(".")[0];
+				levels[levelname] = load("res://levels/" + file_name);
+			file_name = dir.get_next()
 
 func reset():
 	generateopeninggrid();

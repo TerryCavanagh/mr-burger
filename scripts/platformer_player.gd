@@ -26,7 +26,6 @@ var touchingladder = false;
 var movingdirection:int = 0;
 var facingdirection:int = 1;
 var initialy:float;
-var juststarted:float = 1.0;
 
 var state:String = "NORMAL";
 var deathtimer:float = 0.0;
@@ -49,9 +48,9 @@ func _ready():
 	movetofirstcheckpoint();
 	state = "NORMAL";
 	deathtimer = 0.0;
+	fadeintime = 0.25;
 	
 func movetofirstcheckpoint():
-	juststarted = 1.0;
 	var checkpoints = get_tree().get_nodes_in_group("checkpoints");
 	
 	checkpoint = position; #fallback
@@ -60,12 +59,8 @@ func movetofirstcheckpoint():
 			checkpoint = checkpoints[0].position;
 			position = checkpoint;
 	
-func _physics_process(delta):
-	if juststarted > 0:
-		juststarted -= delta;
-		if juststarted <= 0:
-			juststarted = 0;
 	
+func _physics_process(delta):
 	if state == "REVIVE":
 		deathtimer -= delta;
 		if deathtimer <= 0:
@@ -239,19 +234,19 @@ func removecamerazone(zone):
 		movecamera(camerazones[camerazones.size() - 1])
 
 func collectcoin():
-	Game.score += 100;
+	GameGlobal.score += 100;
 	Game.updateUI();
 
 func collectkey():
-	Game.keys += 1;
+	GameGlobal.keys += 1;
 	Game.updateUI();
 
 func collectdot():
-	Game.score += 10;
+	GameGlobal.score += 10;
 	Game.updateUI();
 	
 func killplayer():
-	if state == "NORMAL" && !juststarted:
+	if state == "NORMAL":
 		state = "DEATH";
 		deathtimer = 1;
 		
@@ -263,10 +258,10 @@ func killplayer():
 func revive():
 	Game.cuttoblack();
 	
-	Game.lives -= 1;
+	GameGlobal.lives -= 1;
 	Game.updateUI();
 	
-	if Game.lives <= 0:
+	if GameGlobal.lives <= 0:
 		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file("res://scenes/Gameover.tscn");
 	else:
@@ -326,12 +321,13 @@ func releaserope():
 func victory():
 	Game.cuttoblack();
 	
-	await get_tree().create_timer(0.4).timeout
-	#Game.loadlevel("forest", "stage1");
-	Game.loadlevel("delivery", "stage1");
-	movetofirstcheckpoint();
-	state = "NORMAL";
-	deathtimer = 0.0;
+	await get_tree().create_timer(0.5).timeout
+	get_tree().change_scene_to_file("res://scenes/level_select.tscn");
 	
-	await get_tree().create_timer(0.1).timeout
-	Game.cuttowhite();
+	#Game.loadlevel("forest", "stage1");
+	#Game.loadlevel("delivery", "stage1");
+	#movetofirstcheckpoint();
+	#state = "NORMAL";
+	#deathtimer = 0.0;
+	#await get_tree().create_timer(0.1).timeout
+	#Game.cuttowhite();

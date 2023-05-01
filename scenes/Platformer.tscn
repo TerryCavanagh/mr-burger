@@ -14,7 +14,6 @@ script = ExtResource("2_81hko")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="FadeLayer" type="ColorRect" parent="UI"]
-visible = false
 offset_right = 160.0
 offset_bottom = 90.0
 color = Color(0, 0, 0, 1)

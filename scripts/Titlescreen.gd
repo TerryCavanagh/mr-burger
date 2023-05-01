@@ -12,6 +12,9 @@ func _process(_delta):
 
 func startgame():
 	FadeLayer.visible = true;
+	World.preloadlevels();
 	#await get_tree().create_timer(0.5).timeout
-	#get_tree().change_scene_to_file("res://scenes/Platformer.tscn");
-	get_tree().change_scene_to_file("res://scenes/level_select.tscn");
+	World.nextstage = "mrburger";
+	World.nextlevel = "stage1";
+	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");
+	#get_tree().change_scene_to_file("res://scenes/level_select.tscn");

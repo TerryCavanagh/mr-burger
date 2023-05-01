@@ -22,6 +22,7 @@ Random="*res://scripts/library/Random.gd"
 S="*res://scripts/library/S.gd"
 World="*res://scripts/World.gd"
 Timers="*res://scripts/library/Timers.gd"
+GameGlobal="*res://scripts/GameGlobal.gd"
 
 [display]
 

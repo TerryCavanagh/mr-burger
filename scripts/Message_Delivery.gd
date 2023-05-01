@@ -6,7 +6,8 @@ func _on_body_entered(body):
 the burger!
 
 Bonus: +500");
+		body.position.x += 16;
 		body.Game.preventmovement = true;
-		body.Game.score += 500;
+		GameGlobal.score += 500;
 		body.Game.updateUI();
 		queue_free();
