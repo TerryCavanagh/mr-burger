@@ -16,6 +16,13 @@ config/features=PackedStringArray("4.0", "GL Compatibility")
 run/max_fps=30
 config/icon="res://icon.svg"
 
+[autoload]
+
+Random="*res://scripts/library/Random.gd"
+S="*res://scripts/library/S.gd"
+World="*res://scripts/World.gd"
+Timers="*res://scripts/library/Timers.gd"
+
 [display]
 
 window/size/viewport_width=1280

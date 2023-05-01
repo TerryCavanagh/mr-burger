@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2jjjf5gfaw87"]
+[gd_scene load_steps=12 format=3 uid="uid://c2jjjf5gfaw87"]
 
 [ext_resource type="Texture2D" uid="uid://bqet427wvole" path="res://graphics/stageicons.png" id="1_daxga"]
 
@@ -29,6 +29,10 @@ region = Rect2(48, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_145bf"]
 atlas = ExtResource("1_daxga")
 region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0uii"]
+atlas = ExtResource("1_daxga")
+region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c73y2"]
 atlas = ExtResource("1_daxga")
@@ -94,6 +98,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_m0uii")
+}],
+"loop": true,
+"name": &"player",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_c73y2")
 }],
 "loop": true,
@@ -103,5 +115,5 @@ animations = [{
 
 [node name="stageicon" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_01k2p")
-animation = &"question"
+animation = &"forest"
 autoplay = "question"

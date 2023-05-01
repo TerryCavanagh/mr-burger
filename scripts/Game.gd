@@ -74,6 +74,7 @@ func init():
 	score = 0;
 	keys = 0;
 	lives = 3;
+	World.reset();
 	preventmovement = false;
 	
 func initUI():
@@ -134,3 +135,5 @@ func showmessage(msg:String):
 func hidemessage():
 	preventmovement = false;
 	UI.get_node("Message").visible = false;
+	
+
