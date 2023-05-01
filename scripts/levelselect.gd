@@ -25,7 +25,6 @@ var timer:float = 0.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	World.reset();
 	settolevelgrid();
 	movecursor(World.playerposition);
 	movingdirection = "none";
@@ -45,7 +44,23 @@ func _process(delta):
 				if timer <= 0:
 					timer = 0;
 					FadeLayer.visible = true;
-					startlevel();
+					
+					var stagetype:String = World.levelgrid[World.cursorposition];
+					levelgrid[World.playerposition].play("clear");
+					
+					if movevector.x < 0:
+						World.playerposition -= 1;
+					elif movevector.x > 0:
+						World.playerposition += 1;
+					
+					if movevector.y < 0:
+						World.playerposition -= 3;
+					elif movevector.y > 0:
+						World.playerposition += 3;
+					
+					levelgrid[World.playerposition].play("clear");
+					World.clearfog(World.playerposition);
+					startlevel(stagetype);
 					state = "startlevel";
 		"moveplayer":
 			playerimage.position += movevector;
@@ -54,6 +69,44 @@ func _process(delta):
 			if timer < 0:
 				state = "startlevel_wait";
 				timer = 0.5;
+		"moveplayer_clear":
+			playerimage.position += movevector;
+			timer -= 1;
+			
+			if timer < 0:
+				if movevector.x < 0:
+					World.playerposition -= 1;
+				elif movevector.x > 0:
+					World.playerposition += 1;
+				
+				if movevector.y < 0:
+					World.playerposition -= 3;
+				elif movevector.y > 0:
+					World.playerposition += 3;
+				
+				levelgrid[World.playerposition].play("clear");
+				World.clearfog(World.playerposition);
+				
+				state = "select";
+		"selectedclear":
+			state = "moveplayer_clear";
+			match movingdirection:
+				"up":
+					movevector = Vector2i(0, -2);
+				"down":
+					movevector = Vector2i(0, 2);
+				"left":
+					movevector = Vector2i(-2, 0);
+				"right":
+					movevector = Vector2i(2, 0);
+			timer = 11;
+			
+			World.levelgrid[World.playerposition] = "clear";
+			levelgrid[World.playerposition].play("clear");
+			playerimage.position = getindexposition(World.playerposition);
+			playerimage.visible = true;
+			cursor.visible = true;
+			movingdirection = "none";
 		"selected":
 			if Timers.timer_1_4_frame % 2 == 0:
 				cursor.visible = true;
@@ -84,7 +137,7 @@ func _process(delta):
 		"select":
 			var attempt:bool = true;
 			if pressup:
-				if World.playerposition - 3 > 0:
+				if World.playerposition - 3 >= 0:
 					movecursor(World.playerposition - 3);
 					movingdirection = "up";
 				else:
@@ -96,7 +149,7 @@ func _process(delta):
 				else:
 					attempt = false;
 			if pressleft:
-				if World.playerposition - 1 > 0:
+				if World.playerposition - 1 >= 0:
 					if (World.playerposition - 1) % 3 != 2:
 						movecursor(World.playerposition - 1);
 						movingdirection = "left";
@@ -105,8 +158,8 @@ func _process(delta):
 				else:
 					attempt = false;
 			if pressright:
-				if World.playerposition + 1 > 0:
-					if (World.playerposition + 1) % 3:
+				if World.playerposition + 1 < 9:
+					if (World.playerposition + 1) % 3 != 0:
 						movecursor(World.playerposition + 1);
 						movingdirection = "right";
 					else:
@@ -120,9 +173,17 @@ func _process(delta):
 				
 			if pressedjump:
 				if World.cursorposition != World.playerposition:
-					Header.text = S.uppercase(World.levelgrid[World.cursorposition]);
-					state = "selected";
-					timer = 2.0;
+					var headertext = S.uppercase(World.levelgrid[World.cursorposition]);
+					if headertext != "CLEAR":
+						Header.text = headertext;
+					else:
+						Header.text = "choose your path";
+						
+					if World.levelgrid[World.cursorposition] == "clear":
+						state = "selectedclear";
+					else:
+						state = "selected";
+						timer = 2.0;
 	
 	updatemovingdirection();
 	
@@ -135,11 +196,11 @@ func updatemovingdirection():
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 		"down":
-			movingarrow.position = cursor.position + Vector2(7, 20);
+			movingarrow.position = cursor.position + Vector2(0, -16);
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 		"left":
-			movingarrow.position = cursor.position + Vector2(7, 20);
+			movingarrow.position = cursor.position + Vector2(12, 0);
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 		"right":
@@ -196,7 +257,7 @@ func movecursor(index):
 	cursor.visible = true;
 	cursor.position = getindexposition(index);
 
-func startlevel():
-	World.nextstage = World.levelgrid[World.cursorposition];
+func startlevel(stagetype):
+	World.nextstage = stagetype;
 	World.nextlevel = "stage1";
 	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");

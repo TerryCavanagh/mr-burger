@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://bjd1mmarusbwh"]
+[gd_scene load_steps=24 format=3 uid="uid://bjd1mmarusbwh"]
 
 [ext_resource type="FontFile" uid="uid://snfcte01d77d" path="res://graphics/intellivision.ttf" id="1_00dnb"]
+[ext_resource type="Texture2D" uid="uid://dmpthkt7eu6an" path="res://graphics/stagegrid.png" id="2_msrxm"]
 [ext_resource type="Texture2D" uid="uid://bvgsfd52mwxgn" path="res://graphics/stages.png" id="2_q6yfy"]
 [ext_resource type="PackedScene" uid="uid://c2jjjf5gfaw87" path="res://scenes/stageicon.tscn" id="3_1gr4w"]
 [ext_resource type="Script" path="res://scripts/levelselect.gd" id="4_0kd63"]
@@ -16,6 +17,10 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("2_q6yfy")
 region = Rect2(0, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_od5bu"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(64, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ge70h"]
 atlas = ExtResource("2_q6yfy")
 region = Rect2(320, 0, 64, 64)
@@ -27,10 +32,6 @@ region = Rect2(256, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mk12w"]
 atlas = ExtResource("2_q6yfy")
 region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_od5bu"]
-atlas = ExtResource("2_q6yfy")
-region = Rect2(64, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mykjl"]
 atlas = ExtResource("2_q6yfy")
@@ -56,6 +57,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_od5bu")
+}],
+"loop": true,
+"name": &"delivery",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ge70h")
 }],
 "loop": true,
@@ -76,14 +85,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"forest",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_od5bu")
-}],
-"loop": true,
-"name": &"house",
 "speed": 5.0
 }, {
 "frames": [{
@@ -171,9 +172,16 @@ offset_right = 160.0
 offset_bottom = 90.0
 color = Color(0, 0, 0, 1)
 
+[node name="TextureRect" type="TextureRect" parent="UI"]
+offset_left = 43.0
+offset_top = 13.0
+offset_right = 117.0
+offset_bottom = 87.0
+texture = ExtResource("2_msrxm")
+
 [node name="Header" type="Label" parent="UI"]
 offset_right = 160.0
-offset_bottom = 18.0
+offset_bottom = 14.0
 theme_override_fonts/font = ExtResource("1_00dnb")
 theme_override_font_sizes/font_size = 8
 text = "choose your path"
@@ -184,7 +192,7 @@ vertical_alignment = 1
 visible = false
 position = Vector2(82, 49)
 sprite_frames = SubResource("SpriteFrames_0ts1h")
-animation = &"dungeon"
+animation = &"delivery"
 
 [node name="x0y0" parent="UI" instance=ExtResource("3_1gr4w")]
 position = Vector2(56, 26)

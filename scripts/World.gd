@@ -4,11 +4,17 @@ var nextstage:String;
 var nextlevel:String;
 var levels:Dictionary = {};
 
-var levelgrid:Array = ["question", "question", "house", "question", "question", "question", "burger", "question", "question"];
+var levelgrid:Array = ["question", "question", "delivery", "question", "question", "question", "burger", "question", "question"];
 var fog:Array = [true, true, false, true, true, true, false, true, true];
 
 var playerposition:int;
 var cursorposition:int;
+
+func reset():
+	nextstage = "mrburger";
+	nextlevel = "stage1";
+	
+	generateopeninggrid();
 
 func preloadlevels():
 	var dir = DirAccess.open("levels/");
@@ -22,19 +28,33 @@ func preloadlevels():
 				levels[levelname] = load("res://levels/" + file_name);
 			file_name = dir.get_next()
 
-func reset():
-	generateopeninggrid();
-	
 func generateopeninggrid():
 	var levellist:Array = ["beach", "beach", "forest", "forest", "factory", "factory", "dungeon"];
 	levellist = Random.shuffle(levellist);
 	
-	levelgrid = [levellist.pop_back(), levellist.pop_back(), "house", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back()];
-	fog = [true, true, false, true, true, true, false, true, true];
-	
-	playerposition = 6;
-	cursorposition = 6;
-	clearfog(playerposition);
+	var randint:int = Random.integer(0, 4);
+	match randint:
+		0:
+			levelgrid = [levellist.pop_back(), levellist.pop_back(), "delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back()];
+			fog = [true, true, false, true, true, true, false, true, true];
+			playerposition = 6;
+		1:
+			levelgrid = ["burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery"];
+			fog = [false, true, true, true, true, true, true, true, false];
+			playerposition = 0;
+		2:
+			levelgrid = [levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery", levellist.pop_back(), levellist.pop_back()];
+			fog = [true, true, false, true, true, true, false, true, true];
+			playerposition = 2;
+		3:
+			levelgrid = ["delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger"];
+			fog = [false, true, true, true, true, true, true, true, false];
+			playerposition = 8;
+			
+	cursorposition = playerposition;
+	#clearfog(playerposition);
+	#actually nevermind, fog sucks
+	fog = [false, false, false, false, false, false, false, false, false];
 	
 func clearfog(index):
 	fog[index] = false;

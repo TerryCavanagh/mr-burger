@@ -43,8 +43,6 @@ func unloadlevel():
 		LevelNode.remove_child(LevelNode.get_node("Level"));
 
 func init():
-	GameGlobal.newgame();
-	World.reset();
 	preventmovement = false;
 	
 func initUI():

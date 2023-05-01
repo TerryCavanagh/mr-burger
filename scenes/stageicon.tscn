@@ -14,6 +14,10 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("1_daxga")
 region = Rect2(112, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_145bf"]
+atlas = ExtResource("1_daxga")
+region = Rect2(16, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vjbtp"]
 atlas = ExtResource("1_daxga")
 region = Rect2(80, 0, 16, 16)
@@ -25,10 +29,6 @@ region = Rect2(64, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xn3m0"]
 atlas = ExtResource("1_daxga")
 region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_145bf"]
-atlas = ExtResource("1_daxga")
-region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m0uii"]
 atlas = ExtResource("1_daxga")
@@ -66,6 +66,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_145bf")
+}],
+"loop": true,
+"name": &"delivery",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vjbtp")
 }],
 "loop": true,
@@ -90,14 +98,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_145bf")
-}],
-"loop": true,
-"name": &"house",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_m0uii")
 }],
 "loop": true,
@@ -115,5 +115,5 @@ animations = [{
 
 [node name="stageicon" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_01k2p")
-animation = &"forest"
+animation = &"delivery"
 autoplay = "question"

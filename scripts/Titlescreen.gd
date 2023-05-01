@@ -14,7 +14,6 @@ func startgame():
 	FadeLayer.visible = true;
 	World.preloadlevels();
 	#await get_tree().create_timer(0.5).timeout
-	World.nextstage = "mrburger";
-	World.nextlevel = "stage1";
+	GameGlobal.newgame();
 	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");
 	#get_tree().change_scene_to_file("res://scenes/level_select.tscn");

@@ -10,3 +10,4 @@ func newgame():
 	keys = 0;
 	score = 0;
 	ordernumber = 1;
+	World.reset();
