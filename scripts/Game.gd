@@ -8,24 +8,45 @@ extends Node
 var hearts:Array = [];
 var keygfx:Array = [];
 
+var levelsloaded:bool = false;
 var levels:Dictionary = {};
 var currentlevel = "";
 
 var lives:int = 3;
 var keys:int = 0;
 var score:int = 0;
+var ordernumber:int = 1;
+
+var preventmovement:bool = false;
+
+var messagetime:float = 0.0;
 
 func _ready():
 	init();
 	initUI();
 	updateUI();
 	
-	preloadlevels();
+	if !levelsloaded:
+		preloadlevels();
+	loadlevel("mrburger", "stage1");
+	
 	#loadlevel("factory", "stage1");
-	loadlevel("dungeon", "stage1");
+	#loadlevel("dungeon", "stage1");
 	#loadlevel("forest", "stage1");
 	#loadlevel("beach", "stage1");
+	
 	#loadlevel("testlevel", "testlevel")
+	
+func _process(delta):
+	if messagetime > 0:
+		messagetime -= delta;
+		if messagetime <= 0:
+			messagetime = 0;
+			hidemessage();
+		else:
+			if Input.is_action_just_pressed("confirm"):
+				messagetime = 0;
+				hidemessage();
 	
 func preloadlevels():
 	var dir = DirAccess.open("levels/");
@@ -51,6 +72,9 @@ func unloadlevel():
 
 func init():
 	score = 0;
+	keys = 0;
+	lives = 3;
+	preventmovement = false;
 	
 func initUI():
 	hearts.push_back(UI.get_node("life1"));
@@ -100,3 +124,13 @@ func cuttowhite():
 
 func revive():
 	get_tree().call_group("disapperingplatform", "reset");
+	
+func showmessage(msg:String):
+	UI.get_node("Message").get_node("Text").text = msg;
+	UI.get_node("Message").visible = true;
+	
+	messagetime = 2.0;
+
+func hidemessage():
+	preventmovement = false;
+	UI.get_node("Message").visible = false;

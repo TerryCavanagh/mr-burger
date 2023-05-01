@@ -1,0 +1,151 @@
+[gd_scene load_steps=13 format=3 uid="uid://bjd1mmarusbwh"]
+
+[ext_resource type="FontFile" uid="uid://snfcte01d77d" path="res://graphics/intellivision.ttf" id="1_00dnb"]
+[ext_resource type="Texture2D" uid="uid://bvgsfd52mwxgn" path="res://graphics/stages.png" id="2_q6yfy"]
+[ext_resource type="PackedScene" uid="uid://c2jjjf5gfaw87" path="res://scenes/stageicon.tscn" id="3_1gr4w"]
+[ext_resource type="Script" path="res://scripts/levelselect.gd" id="4_0kd63"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnowq"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vcqj"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge70h"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjb6r"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk12w"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_od5bu"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mykjl"]
+atlas = ExtResource("2_q6yfy")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ts1h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnowq")
+}],
+"loop": true,
+"name": &"beach",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vcqj")
+}],
+"loop": true,
+"name": &"burger",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge70h")
+}],
+"loop": true,
+"name": &"dungeon",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjb6r")
+}],
+"loop": true,
+"name": &"factory",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mk12w")
+}],
+"loop": true,
+"name": &"forest",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_od5bu")
+}],
+"loop": true,
+"name": &"house",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mykjl")
+}],
+"loop": true,
+"name": &"question",
+"speed": 5.0
+}]
+
+[node name="LevelSelect" type="Node2D"]
+script = ExtResource("4_0kd63")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Background" type="ColorRect" parent="UI"]
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 1)
+
+[node name="Score" type="Label" parent="UI"]
+offset_right = 160.0
+offset_bottom = 18.0
+theme_override_fonts/font = ExtResource("1_00dnb")
+theme_override_font_sizes/font_size = 8
+text = "choose your path"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FadeLayer" type="ColorRect" parent="UI"]
+visible = false
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 1)
+
+[node name="whoops" type="AnimatedSprite2D" parent="UI"]
+visible = false
+position = Vector2(82, 49)
+sprite_frames = SubResource("SpriteFrames_0ts1h")
+animation = &"dungeon"
+
+[node name="x0y0" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(56, 26)
+
+[node name="x1y0" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(80, 26)
+
+[node name="x2y0" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(104, 26)
+
+[node name="x0y1" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(56, 50)
+
+[node name="x1y1" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(80, 50)
+
+[node name="x2y1" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(104, 50)
+
+[node name="x0y2" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(56, 74)
+
+[node name="x1y2" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(80, 74)
+
+[node name="x2y2" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(104, 74)

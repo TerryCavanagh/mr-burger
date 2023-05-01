@@ -26,6 +26,7 @@ var touchingladder = false;
 var movingdirection:int = 0;
 var facingdirection:int = 1;
 var initialy:float;
+var juststarted:float = 1.0;
 
 var state:String = "NORMAL";
 var deathtimer:float = 0.0;
@@ -45,6 +46,12 @@ var rope:Node2D = null;
 var checkpoint:Vector2;
 
 func _ready():
+	movetofirstcheckpoint();
+	state = "NORMAL";
+	deathtimer = 0.0;
+	
+func movetofirstcheckpoint():
+	juststarted = 1.0;
 	var checkpoints = get_tree().get_nodes_in_group("checkpoints");
 	
 	checkpoint = position; #fallback
@@ -54,6 +61,11 @@ func _ready():
 			position = checkpoint;
 	
 func _physics_process(delta):
+	if juststarted > 0:
+		juststarted -= delta;
+		if juststarted <= 0:
+			juststarted = 0;
+	
 	if state == "REVIVE":
 		deathtimer -= delta;
 		if deathtimer <= 0:
@@ -96,10 +108,19 @@ func _physics_process(delta):
 		var pressleft:bool = Input.is_action_pressed("left");
 		var pressright:bool = Input.is_action_pressed("right");
 		var pressup:bool  = Input.is_action_pressed("up");
-		var pressdown:bool  = Input.is_action_pressed("down");
+		var pressdown:bool = Input.is_action_pressed("down");
+		var pressedjump:bool = Input.is_action_just_pressed("confirm");
+		
+		if Game.preventmovement:
+			pressleft = false;
+			pressright = false;
+			pressup = false;
+			pressdown = false;
+			pressedjump = false;
+			
 		
 		# Handle Jump
-		if Input.is_action_just_pressed("confirm"):
+		if pressedjump:
 			if (onfloor || touchingladder || grabbedrope) && !swimming:
 				velocity.y = JUMP_VELOCITY
 				initialy = position.y;
@@ -230,7 +251,7 @@ func collectdot():
 	Game.updateUI();
 	
 func killplayer():
-	if state == "NORMAL":
+	if state == "NORMAL" && !juststarted:
 		state = "DEATH";
 		deathtimer = 1;
 		
@@ -305,6 +326,12 @@ func releaserope():
 func victory():
 	Game.cuttoblack();
 	
-	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file("res://scenes/Gameover.tscn");
+	await get_tree().create_timer(0.4).timeout
+	#Game.loadlevel("forest", "stage1");
+	Game.loadlevel("delivery", "stage1");
+	movetofirstcheckpoint();
+	state = "NORMAL";
+	deathtimer = 0.0;
 	
+	await get_tree().create_timer(0.1).timeout
+	Game.cuttowhite();

@@ -1,0 +1,107 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2jjjf5gfaw87"]
+
+[ext_resource type="Texture2D" uid="uid://bqet427wvole" path="res://graphics/stageicons.png" id="1_daxga"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gu7d"]
+atlas = ExtResource("1_daxga")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jekl"]
+atlas = ExtResource("1_daxga")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2kes"]
+atlas = ExtResource("1_daxga")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjbtp"]
+atlas = ExtResource("1_daxga")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jt4u3"]
+atlas = ExtResource("1_daxga")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xn3m0"]
+atlas = ExtResource("1_daxga")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_145bf"]
+atlas = ExtResource("1_daxga")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c73y2"]
+atlas = ExtResource("1_daxga")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_01k2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gu7d")
+}],
+"loop": true,
+"name": &"beach",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jekl")
+}],
+"loop": true,
+"name": &"burger",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2kes")
+}],
+"loop": true,
+"name": &"clear",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjbtp")
+}],
+"loop": true,
+"name": &"dungeon",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jt4u3")
+}],
+"loop": true,
+"name": &"factory",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xn3m0")
+}],
+"loop": true,
+"name": &"forest",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_145bf")
+}],
+"loop": true,
+"name": &"house",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c73y2")
+}],
+"loop": true,
+"name": &"question",
+"speed": 5.0
+}]
+
+[node name="stageicon" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_01k2p")
+animation = &"question"
+autoplay = "question"
