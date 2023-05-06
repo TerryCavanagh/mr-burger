@@ -1,7 +1,12 @@
 extends Node2D
 
 @onready var UI = get_node("UI");
-@onready var levelgrid = [UI.get_node("x0y0"), UI.get_node("x1y0"), UI.get_node("x2y0"), UI.get_node("x0y1"), UI.get_node("x1y1"), UI.get_node("x2y1"), UI.get_node("x0y2"), UI.get_node("x1y2"), UI.get_node("x2y2")]
+@onready var levelgrid = [
+	UI.get_node("x0y0"), UI.get_node("x1y0"), UI.get_node("x2y0"), UI.get_node("x3y0"), 
+	UI.get_node("x0y1"), UI.get_node("x1y1"), UI.get_node("x2y1"), UI.get_node("x3y1"),  
+	UI.get_node("x0y2"), UI.get_node("x1y2"), UI.get_node("x2y2"), UI.get_node("x3y2"), 
+	UI.get_node("x0y3"), UI.get_node("x1y3"), UI.get_node("x2y3"), UI.get_node("x3y3")
+]
 @onready var cursor = UI.get_node("cursor");
 @onready var playerimage = UI.get_node("playerimage");
 @onready var movingarrow = UI.get_node("movingarrow");
@@ -96,9 +101,9 @@ func _process(delta):
 					World.playerposition.x += 1;
 				
 				if movevector.y < 0:
-					World.playerposition.x -= 1;
+					World.playerposition.y -= 1;
 				elif movevector.y > 0:
-					World.playerposition.x += 1;
+					World.playerposition.y += 1;
 				
 				levelgrid[gridindex(World.playerposition)].play("clear");
 				
@@ -226,7 +231,7 @@ func settolevelgrid():
 	levelgrid[gridindex(World.playerposition)].play("player");
 
 func getscreenpositionfromgrid(gridpos:Vector2i) -> Vector2:
-	return Vector2(56 + (gridpos.x * 24), 26 + (gridpos.y * 24));
+	return Vector2(40 + (gridpos.x * 24), 10 + (gridpos.y * 24));
 
 func movecursor(gridpos:Vector2i):
 	World.cursorposition = gridpos;

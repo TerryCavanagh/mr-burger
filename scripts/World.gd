@@ -5,8 +5,8 @@ var nextlevel:String;
 var levels:Dictionary = {};
 
 var levelgrid:Array[String] = [];
-const WIDTH:int = 3;
-const HEIGHT:int = 3;
+const WIDTH:int = 4;
+const HEIGHT:int = 4;
 
 var playerposition:Vector2i;
 var cursorposition:Vector2i;
@@ -36,25 +36,45 @@ func preloadlevels():
 			file_name = dir.get_next()
 
 func generateopeninggrid():
-	var levellist:Array = ["beach", "beach", "forest", "forest", "factory", "factory", "dungeon"];
+	var levellist:Array = [
+		"beach", "beach", "beach", "beach", 
+		"forest", "forest", "forest", "forest", 
+		"factory", "factory", "factory", "factory", 
+		"dungeon", "dungeon"
+		];
 	levellist = Random.shuffle(levellist);
 	
 	var randint:int = Random.integer(0, 4);
-	randint = 0;
 	match randint:
 		0:
-			levelgrid = [levellist.pop_back(), levellist.pop_back(), "delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back()];
-			playerposition = Vector2i(0, 2);
+			levelgrid = [
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery",
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				"burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back()];
+			playerposition = Vector2i(0, HEIGHT - 1);
 		1:
-			levelgrid = ["burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery"];
+			levelgrid = [
+				"burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery"];
 			playerposition = Vector2i(0, 0);
 		2:
-			levelgrid = [levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery", levellist.pop_back(), levellist.pop_back()];
-			playerposition = Vector2i(2, 0);
+			levelgrid = [
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger",
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				"delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back()];
+			playerposition = Vector2i(WIDTH - 1, 0);
 		3:
-			levelgrid = ["delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger"];
-			playerposition = Vector2i(2, 2);
-			
+			levelgrid = [
+				"delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(),
+				levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger"];
+			playerposition = Vector2i(WIDTH - 1, HEIGHT - 1);
+	
 	cursorposition = playerposition;
 	
 #Place a burger at the furtherest corner. Let's make this

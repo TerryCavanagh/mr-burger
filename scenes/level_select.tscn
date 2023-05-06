@@ -173,6 +173,7 @@ offset_bottom = 90.0
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="UI"]
+visible = false
 offset_left = 43.0
 offset_top = 13.0
 offset_right = 117.0
@@ -195,32 +196,54 @@ sprite_frames = SubResource("SpriteFrames_0ts1h")
 animation = &"delivery"
 
 [node name="x0y0" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(56, 26)
+position = Vector2(40, 10)
 
 [node name="x1y0" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(80, 26)
+position = Vector2(64, 10)
 
 [node name="x2y0" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(104, 26)
+position = Vector2(88, 10)
+animation = &"question"
+
+[node name="x3y0" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(112, 10)
 animation = &"question"
 
 [node name="x0y1" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(56, 50)
+position = Vector2(40, 34)
 
 [node name="x1y1" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(80, 50)
+position = Vector2(64, 34)
 
 [node name="x2y1" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(104, 50)
+position = Vector2(88, 34)
+
+[node name="x3y1" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(112, 34)
 
 [node name="x0y2" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(56, 74)
+position = Vector2(40, 58)
 
 [node name="x1y2" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(80, 74)
+position = Vector2(64, 58)
 
 [node name="x2y2" parent="UI" instance=ExtResource("3_1gr4w")]
-position = Vector2(104, 74)
+position = Vector2(88, 58)
+
+[node name="x3y2" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(112, 58)
+
+[node name="x0y3" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(40, 82)
+
+[node name="x1y3" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(64, 82)
+
+[node name="x2y3" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(88, 82)
+
+[node name="x3y3" parent="UI" instance=ExtResource("3_1gr4w")]
+position = Vector2(112, 82)
 
 [node name="movingarrow" type="AnimatedSprite2D" parent="UI"]
 visible = false
