@@ -23,6 +23,7 @@ S="*res://scripts/library/S.gd"
 World="*res://scripts/World.gd"
 Timers="*res://scripts/library/Timers.gd"
 GameGlobal="*res://scripts/GameGlobal.gd"
+BuildConfig="*res://scripts/build_config.gd"
 
 [display]
 

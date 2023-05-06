@@ -106,8 +106,9 @@ func _physics_process(delta):
 		var pressdown:bool = Input.is_action_pressed("down");
 		var pressedjump:bool = Input.is_action_just_pressed("confirm");
 		
-		if pressdown:
-			victory();
+		if BuildConfig.LEVELSKIP:
+			if pressdown and pressup:
+				victory();
 		
 		if Game.preventmovement:
 			pressleft = false;
