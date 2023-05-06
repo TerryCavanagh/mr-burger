@@ -28,7 +28,14 @@ func _ready():
 	settolevelgrid();
 	movecursor(World.playerposition);
 	movingdirection = "none";
-
+	
+	if World.placementstage.size() > 0:
+		cursor.visible = false;
+		state = "placement";
+		timer = 2.0;
+	else:
+		state = "select"
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var pressleft:bool = Input.is_action_pressed("left");
@@ -38,6 +45,26 @@ func _process(delta):
 	var pressedjump:bool = Input.is_action_just_pressed("confirm");
 	
 	match state:
+		"placement":
+			timer -= delta;
+			if timer <= 0:
+				timer = 0;
+				var i:int = 0;
+				while i < World.placementstage.size():
+					World.levelgrid[World.placementposition[i]] = World.placementstage[i];
+					levelgrid[World.placementposition[i]].play(World.placementstage[i]);
+					i += 1;
+				
+				World.clearplacements();
+				state = "select";
+			else:
+				var i:int = 0;
+				while i < World.placementstage.size():
+					if Timers.timer_1_4_frame == 0:
+						levelgrid[World.placementposition[i]].play("clear");
+					else:
+						levelgrid[World.placementposition[i]].play(World.placementstage[i]);
+					i += 1;
 		"startlevel_wait":
 			if timer > 0:
 				timer -= delta;
@@ -108,10 +135,7 @@ func _process(delta):
 			cursor.visible = true;
 			movingdirection = "none";
 		"selected":
-			if Timers.timer_1_4_frame % 2 == 0:
-				cursor.visible = true;
-			else:
-				cursor.visible = false;
+			cursor.visible = true;
 			
 			if timer > 0:
 				timer -= delta;
@@ -133,7 +157,6 @@ func _process(delta):
 					playerimage.position = getindexposition(World.playerposition);
 					playerimage.visible = true;
 					cursor.visible = true;
-					movingdirection = "none";
 		"select":
 			var attempt:bool = true;
 			if pressup:
@@ -183,7 +206,7 @@ func _process(delta):
 						state = "selectedclear";
 					else:
 						state = "selected";
-						timer = 2.0;
+						timer = 0.2;
 	
 	updatemovingdirection();
 	
@@ -192,19 +215,19 @@ func updatemovingdirection():
 		"none":
 			movingarrow.visible = false;
 		"up":
-			movingarrow.position = cursor.position + Vector2(0, 16);
+			movingarrow.position = cursor.position + Vector2(0, 14);
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 		"down":
-			movingarrow.position = cursor.position + Vector2(0, -16);
+			movingarrow.position = cursor.position + Vector2(0, -14);
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 		"left":
-			movingarrow.position = cursor.position + Vector2(12, 0);
+			movingarrow.position = cursor.position + Vector2(11, 0);
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 		"right":
-			movingarrow.position = cursor.position + Vector2(-12, 0);
+			movingarrow.position = cursor.position + Vector2(-11, 0);
 			movingarrow.play(movingdirection);
 			movingarrow.visible = true;
 			

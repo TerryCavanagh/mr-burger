@@ -325,6 +325,18 @@ func victory():
 	Game.cuttoblack();
 	
 	await get_tree().create_timer(0.5).timeout
+	
+	#print("level just finished was " + World.nextstage)
+	if World.nextstage == "delivery":
+		World.generateburger();
+		World.placerandomstage();
+		World.placerandomstage();
+	elif World.nextstage == "burger":
+		if GameGlobal.ordernumber > 1:
+			World.generatedelivery();
+			World.placerandomstage();
+			World.placerandomstage();
+		
 	get_tree().change_scene_to_file("res://scenes/level_select.tscn");
 	
 	#Game.loadlevel("forest", "stage1");

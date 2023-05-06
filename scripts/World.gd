@@ -10,9 +10,15 @@ var fog:Array = [true, true, false, true, true, true, false, true, true];
 var playerposition:int;
 var cursorposition:int;
 
+var placementstage:Array = [];
+var placementposition:Array = [];
+
 func reset():
-	nextstage = "mrburger";
+	nextstage = "burger";
 	nextlevel = "stage1";
+	
+	placementstage = [];
+	placementposition = [];
 	
 	generateopeninggrid();
 
@@ -55,7 +61,64 @@ func generateopeninggrid():
 	#clearfog(playerposition);
 	#actually nevermind, fog sucks
 	fog = [false, false, false, false, false, false, false, false, false];
+
+#Place a burger at the furtherest corner. Let's make this
+#more interesting later
+func generateburger():
+	var newplacementstage = "burger";
+	var newplacementposition = playerposition;
+	match playerposition:
+		0:
+			newplacementposition = 8;
+		2:
+			newplacementposition = 6;
+		6:
+			newplacementposition = 2;
+		8:
+			newplacementposition = 0;
 	
+	placementstage.push_back(newplacementstage);
+	placementposition.push_back(newplacementposition);
+	
+func generatedelivery():
+	var newplacementstage = "delivery";
+	var newplacementposition = playerposition;
+	match playerposition:
+		0:
+			newplacementposition = 8;
+		2:
+			newplacementposition = 6;
+		6:
+			newplacementposition = 2;
+		8:
+			newplacementposition = 0;
+	
+	placementstage.push_back(newplacementstage);
+	placementposition.push_back(newplacementposition);
+
+#Add a randomlevel to the placement queue
+func placerandomstage():
+	var emptyspots:Array = [];
+	var i = 0;
+	while i < levelgrid.size():
+		if levelgrid[i] == "clear" and playerposition != i and !placementposition.has(i):
+			emptyspots.push_back(i);
+		i += 1;
+	
+	if emptyspots.size() > 0:
+		var levellist:Array = ["beach", "beach", "forest", "forest", "factory", "factory", "dungeon"];
+		levellist = Random.shuffle(levellist);
+		
+		var newplacementstage = levellist.pop_back();
+		var newplacementposition = emptyspots.pop_back();
+		
+		placementstage.push_back(newplacementstage);
+		placementposition.push_back(newplacementposition);
+
+func clearplacements():
+	placementstage = [];
+	placementposition = [];
+
 func clearfog(index):
 	fog[index] = false;
 	levelgrid[index] = "clear";

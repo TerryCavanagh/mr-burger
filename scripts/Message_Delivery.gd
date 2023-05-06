@@ -9,5 +9,6 @@ Bonus: +500");
 		body.position.x += 16;
 		body.Game.preventmovement = true;
 		GameGlobal.score += 500;
+		GameGlobal.ordernumber += 1;
 		body.Game.updateUI();
 		queue_free();
