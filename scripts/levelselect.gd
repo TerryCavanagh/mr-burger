@@ -86,7 +86,6 @@ func _process(delta):
 						World.playerposition += 3;
 					
 					levelgrid[World.playerposition].play("clear");
-					World.clearfog(World.playerposition);
 					startlevel(stagetype);
 					state = "startlevel";
 		"moveplayer":
@@ -112,7 +111,6 @@ func _process(delta):
 					World.playerposition += 3;
 				
 				levelgrid[World.playerposition].play("clear");
-				World.clearfog(World.playerposition);
 				
 				state = "select";
 		"selectedclear":
@@ -235,10 +233,7 @@ func updatemovingdirection():
 func settolevelgrid():
 	var i:int = 0;
 	while i < 9:
-		if World.fog[i]:
-			levelgrid[i].play("question");
-		else:
-			levelgrid[i].play(World.levelgrid[i]);
+		levelgrid[i].play(World.levelgrid[i]);
 		i += 1;
 	
 	levelgrid[World.playerposition].play("player");
