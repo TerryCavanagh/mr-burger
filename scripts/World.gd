@@ -4,13 +4,15 @@ var nextstage:String;
 var nextlevel:String;
 var levels:Dictionary = {};
 
-var levelgrid:Array = ["question", "question", "delivery", "question", "question", "question", "burger", "question", "question"];
+var levelgrid:Array[String] = [];
+const WIDTH:int = 3;
+const HEIGHT:int = 3;
 
-var playerposition:int;
-var cursorposition:int;
+var playerposition:Vector2i;
+var cursorposition:Vector2i;
 
-var placementstage:Array = [];
-var placementposition:Array = [];
+var placementstage:Array[String] = [];
+var placementposition:Array[Vector2i] = [];
 
 func reset():
 	nextstage = "burger";
@@ -38,19 +40,20 @@ func generateopeninggrid():
 	levellist = Random.shuffle(levellist);
 	
 	var randint:int = Random.integer(0, 4);
+	randint = 0;
 	match randint:
 		0:
 			levelgrid = [levellist.pop_back(), levellist.pop_back(), "delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back()];
-			playerposition = 6;
+			playerposition = Vector2i(0, 2);
 		1:
 			levelgrid = ["burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery"];
-			playerposition = 0;
+			playerposition = Vector2i(0, 0);
 		2:
 			levelgrid = [levellist.pop_back(), levellist.pop_back(), "burger", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "delivery", levellist.pop_back(), levellist.pop_back()];
-			playerposition = 2;
+			playerposition = Vector2i(2, 0);
 		3:
 			levelgrid = ["delivery", levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), levellist.pop_back(), "burger"];
-			playerposition = 8;
+			playerposition = Vector2i(2, 2);
 			
 	cursorposition = playerposition;
 	
@@ -58,44 +61,36 @@ func generateopeninggrid():
 #more interesting later
 func generateburger():
 	var newplacementstage = "burger";
-	var newplacementposition = playerposition;
-	match playerposition:
-		0:
-			newplacementposition = 8;
-		2:
-			newplacementposition = 6;
-		6:
-			newplacementposition = 2;
-		8:
-			newplacementposition = 0;
-	
+	var newplacementposition:Vector2i = playerposition;
+	newplacementposition.x = (WIDTH - 1) - playerposition.x;
+	newplacementposition.y = (HEIGHT - 1) - playerposition.y;
 	placementstage.push_back(newplacementstage);
 	placementposition.push_back(newplacementposition);
 	
 func generatedelivery():
 	var newplacementstage = "delivery";
-	var newplacementposition = playerposition;
-	match playerposition:
-		0:
-			newplacementposition = 8;
-		2:
-			newplacementposition = 6;
-		6:
-			newplacementposition = 2;
-		8:
-			newplacementposition = 0;
-	
+	var newplacementposition:Vector2i = playerposition;
+	newplacementposition.x = (WIDTH - 1) - playerposition.x;
+	newplacementposition.y = (HEIGHT - 1) - playerposition.y;
 	placementstage.push_back(newplacementstage);
 	placementposition.push_back(newplacementposition);
 
+func gridindex(v:Vector2i) -> int:
+	return v.x + (v.y * WIDTH);
+	
 #Add a randomlevel to the placement queue
 func placerandomstage():
-	var emptyspots:Array = [];
-	var i = 0;
-	while i < levelgrid.size():
-		if levelgrid[i] == "clear" and playerposition != i and !placementposition.has(i):
-			emptyspots.push_back(i);
-		i += 1;
+	var emptyspots:Array[Vector2i] = [];
+	
+	var j:int = 0;
+	while j < HEIGHT:
+		var i:int = 0;
+		while i < WIDTH:
+			var pos:Vector2i = Vector2i(i, j);
+			if levelgrid[i + (j * WIDTH)] == "clear" and playerposition != pos and !placementposition.has(pos):
+				emptyspots.push_back(pos);
+			i += 1;
+		j += 1;
 	
 	if emptyspots.size() > 0:
 		var levellist:Array = ["beach", "beach", "forest", "forest", "factory", "factory", "dungeon"];

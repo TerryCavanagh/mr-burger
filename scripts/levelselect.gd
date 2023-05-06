@@ -1,17 +1,7 @@
 extends Node2D
 
 @onready var UI = get_node("UI");
-@onready var levelgrid = [
-	UI.get_node("x0y0"),
-	UI.get_node("x1y0"),
-	UI.get_node("x2y0"),
-	UI.get_node("x0y1"),
-	UI.get_node("x1y1"),
-	UI.get_node("x2y1"),
-	UI.get_node("x0y2"),
-	UI.get_node("x1y2"),
-	UI.get_node("x2y2")
-]
+@onready var levelgrid = [UI.get_node("x0y0"), UI.get_node("x1y0"), UI.get_node("x2y0"), UI.get_node("x0y1"), UI.get_node("x1y1"), UI.get_node("x2y1"), UI.get_node("x0y2"), UI.get_node("x1y2"), UI.get_node("x2y2")]
 @onready var cursor = UI.get_node("cursor");
 @onready var playerimage = UI.get_node("playerimage");
 @onready var movingarrow = UI.get_node("movingarrow");
@@ -51,8 +41,8 @@ func _process(delta):
 				timer = 0;
 				var i:int = 0;
 				while i < World.placementstage.size():
-					World.levelgrid[World.placementposition[i]] = World.placementstage[i];
-					levelgrid[World.placementposition[i]].play(World.placementstage[i]);
+					World.levelgrid[gridindex(World.placementposition[i])] = World.placementstage[i];
+					levelgrid[gridindex(World.placementposition[i])].play(World.placementstage[i]);
 					i += 1;
 				
 				World.clearplacements();
@@ -61,9 +51,9 @@ func _process(delta):
 				var i:int = 0;
 				while i < World.placementstage.size():
 					if Timers.timer_1_4_frame == 0:
-						levelgrid[World.placementposition[i]].play("clear");
+						levelgrid[gridindex(World.placementposition[i])].play("clear");
 					else:
-						levelgrid[World.placementposition[i]].play(World.placementstage[i]);
+						levelgrid[gridindex(World.placementposition[i])].play(World.placementstage[i]);
 					i += 1;
 		"startlevel_wait":
 			if timer > 0:
@@ -72,20 +62,20 @@ func _process(delta):
 					timer = 0;
 					FadeLayer.visible = true;
 					
-					var stagetype:String = World.levelgrid[World.cursorposition];
-					levelgrid[World.playerposition].play("clear");
+					var stagetype:String = World.levelgrid[gridindex(World.cursorposition)];
+					levelgrid[gridindex(World.playerposition)].play("clear");
 					
 					if movevector.x < 0:
-						World.playerposition -= 1;
+						World.playerposition.x -= 1;
 					elif movevector.x > 0:
-						World.playerposition += 1;
+						World.playerposition.x += 1;
 					
 					if movevector.y < 0:
-						World.playerposition -= 3;
+						World.playerposition.y -= 1;
 					elif movevector.y > 0:
-						World.playerposition += 3;
+						World.playerposition.y += 1;
 					
-					levelgrid[World.playerposition].play("clear");
+					levelgrid[gridindex(World.playerposition)].play("clear");
 					startlevel(stagetype);
 					state = "startlevel";
 		"moveplayer":
@@ -101,16 +91,16 @@ func _process(delta):
 			
 			if timer < 0:
 				if movevector.x < 0:
-					World.playerposition -= 1;
+					World.playerposition.x -= 1;
 				elif movevector.x > 0:
-					World.playerposition += 1;
+					World.playerposition.x += 1;
 				
 				if movevector.y < 0:
-					World.playerposition -= 3;
+					World.playerposition.x -= 1;
 				elif movevector.y > 0:
-					World.playerposition += 3;
+					World.playerposition.x += 1;
 				
-				levelgrid[World.playerposition].play("clear");
+				levelgrid[gridindex(World.playerposition)].play("clear");
 				
 				state = "select";
 		"selectedclear":
@@ -126,9 +116,9 @@ func _process(delta):
 					movevector = Vector2i(2, 0);
 			timer = 11;
 			
-			World.levelgrid[World.playerposition] = "clear";
-			levelgrid[World.playerposition].play("clear");
-			playerimage.position = getindexposition(World.playerposition);
+			World.levelgrid[gridindex(World.playerposition)] = "clear";
+			levelgrid[gridindex(World.playerposition)].play("clear");
+			playerimage.position = getscreenpositionfromgrid(World.playerposition);
 			playerimage.visible = true;
 			cursor.visible = true;
 			movingdirection = "none";
@@ -150,41 +140,35 @@ func _process(delta):
 							movevector = Vector2i(2, 0);
 					timer = 11;
 					
-					World.levelgrid[World.playerposition] = "clear";
-					levelgrid[World.playerposition].play("clear");
-					playerimage.position = getindexposition(World.playerposition);
+					World.levelgrid[gridindex(World.playerposition)] = "clear";
+					levelgrid[gridindex(World.playerposition)].play("clear");
+					playerimage.position = getscreenpositionfromgrid(World.playerposition);
 					playerimage.visible = true;
 					cursor.visible = true;
 		"select":
 			var attempt:bool = true;
 			if pressup:
-				if World.playerposition - 3 >= 0:
-					movecursor(World.playerposition - 3);
+				if World.playerposition.y - 1 >= 0:
+					movecursor(World.playerposition + Vector2i(0, -1));
 					movingdirection = "up";
 				else:
 					attempt = false;
 			if pressdown:
-				if World.playerposition + 3 < 9:
-					movecursor(World.playerposition + 3);
+				if World.playerposition.y + 1 < World.HEIGHT:
+					movecursor(World.playerposition + Vector2i(0, 1));
 					movingdirection = "down";
 				else:
 					attempt = false;
 			if pressleft:
-				if World.playerposition - 1 >= 0:
-					if (World.playerposition - 1) % 3 != 2:
-						movecursor(World.playerposition - 1);
-						movingdirection = "left";
-					else:
-						attempt = false;
+				if World.playerposition.x - 1 >= 0:
+					movecursor(World.playerposition + Vector2i(-1, 0));
+					movingdirection = "left";
 				else:
 					attempt = false;
 			if pressright:
-				if World.playerposition + 1 < 9:
-					if (World.playerposition + 1) % 3 != 0:
-						movecursor(World.playerposition + 1);
-						movingdirection = "right";
-					else:
-						attempt = false;
+				if World.playerposition.x + 1 < World.WIDTH:
+					movecursor(World.playerposition + Vector2i(1, 0));
+					movingdirection = "right";
 				else:
 					attempt = false;
 			
@@ -194,13 +178,13 @@ func _process(delta):
 				
 			if pressedjump:
 				if World.cursorposition != World.playerposition:
-					var headertext = S.uppercase(World.levelgrid[World.cursorposition]);
+					var headertext = S.uppercase(World.levelgrid[gridindex(World.cursorposition)]);
 					if headertext != "CLEAR":
 						Header.text = headertext;
 					else:
 						Header.text = "choose your path";
 						
-					if World.levelgrid[World.cursorposition] == "clear":
+					if World.levelgrid[gridindex(World.cursorposition)] == "clear":
 						state = "selectedclear";
 					else:
 						state = "selected";
@@ -231,51 +215,28 @@ func updatemovingdirection():
 			
 
 func settolevelgrid():
-	var i:int = 0;
-	while i < 9:
-		levelgrid[i].play(World.levelgrid[i]);
-		i += 1;
+	var j:int = 0;
+	while j < World.HEIGHT:
+		var i:int = 0;
+		while i < World.WIDTH:
+			levelgrid[i + (j * World.WIDTH)].play(World.levelgrid[i + (j * World.WIDTH)]);
+			i += 1;
+		j += 1;
 	
-	levelgrid[World.playerposition].play("player");
+	levelgrid[gridindex(World.playerposition)].play("player");
 
-func getindexposition(index) -> Vector2:
-	#whatever, I'm lazy
-	#
-	#56, 80, 104
-	#26, 50, 74
-	var returnvector:Vector2;
-	match index:
-		0:
-			returnvector = Vector2(56, 26);
-		1:
-			returnvector = Vector2(80, 26);
-		2:
-			returnvector = Vector2(104, 26);
-		3:
-			returnvector = Vector2(56, 50);
-		4:
-			returnvector = Vector2(80, 50);
-		5:
-			returnvector = Vector2(104, 50);
-		6:
-			returnvector = Vector2(56, 74);
-		7:
-			returnvector = Vector2(80, 74);
-		8:
-			returnvector = Vector2(104, 74);
-			
-	return returnvector;
+func getscreenpositionfromgrid(gridpos:Vector2i) -> Vector2:
+	return Vector2(56 + (gridpos.x * 24), 26 + (gridpos.y * 24));
 
-func movecursor(index):
-	World.cursorposition = index;
-	if index == -1:
-		cursor.visible = false;
-		return;
-		
+func movecursor(gridpos:Vector2i):
+	World.cursorposition = gridpos;
 	cursor.visible = true;
-	cursor.position = getindexposition(index);
+	cursor.position = getscreenpositionfromgrid(gridpos);
 
 func startlevel(stagetype):
 	World.nextstage = stagetype;
 	World.nextlevel = "stage1";
 	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");
+
+func gridindex(v:Vector2i) -> int:
+	return v.x + (v.y * World.WIDTH);
