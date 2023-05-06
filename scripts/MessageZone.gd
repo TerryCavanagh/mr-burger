@@ -6,7 +6,6 @@ func _on_body_entered(body):
 
 Ready for
 Delivery!");
-		GameGlobal.ordernumber += 1;
 		body.position.x += 16;
 		body.Game.preventmovement = true;
 		queue_free();
