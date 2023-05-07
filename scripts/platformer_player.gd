@@ -330,11 +330,17 @@ func victory():
 	#print("level just finished was " + World.nextstage)
 	if World.nextstage == "delivery":
 		World.generateburger();
+		World.decaywall();
+		World.placewall();
+		
 		World.placerandomstage();
 		World.placerandomstage();
 	elif World.nextstage == "burger":
 		if GameGlobal.ordernumber > 1:
 			World.generatedelivery();
+			World.decaywall();
+			World.placewall();
+		
 			World.placerandomstage();
 			World.placerandomstage();
 		

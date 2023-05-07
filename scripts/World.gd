@@ -45,6 +45,7 @@ func generateopeninggrid():
 	levellist = Random.shuffle(levellist);
 	
 	var randint:int = Random.integer(0, 4);
+	randint = 0; #with a 4x4 grid, I think a consistent layout works better
 	match randint:
 		0:
 			levelgrid = [
@@ -98,6 +99,10 @@ func generatedelivery():
 func gridindex(v:Vector2i) -> int:
 	return v.x + (v.y * WIDTH);
 	
+func getvectorfromindex(index:int) -> Vector2i:
+	@warning_ignore("integer_division")
+	return Vector2i(index % WIDTH, (index - (index % WIDTH)) / HEIGHT);
+	
 #Add a randomlevel to the placement queue
 func placerandomstage():
 	var emptyspots:Array[Vector2i] = [];
@@ -117,6 +122,52 @@ func placerandomstage():
 		levellist = Random.shuffle(levellist);
 		
 		var newplacementstage = levellist.pop_back();
+		var newplacementposition = emptyspots.pop_back();
+		
+		placementstage.push_back(newplacementstage);
+		placementposition.push_back(newplacementposition);
+
+func decaywall():
+	for i in range(levelgrid.size()):
+		if levelgrid[i] == "wall_old":
+			placementstage.push_back("clear");
+			placementposition.push_back(getvectorfromindex(i));
+		elif levelgrid[i] == "wall_new":
+			levelgrid[i] = "wall_old";
+
+func indexisadjacenttodestination(index) -> bool:
+	#Because we're always using a 4x4 grid and we always have the destinations
+	#in the same places, we can just hard code some indexs to exclude
+	if index == 2:
+		return true;
+	if index == 13:
+		return true;
+	#These two are the vertically adjacent squares - you could turn this off
+	#and it would be fine, but these are bad wall positions so let's try it this way
+	if index == 7:
+		return true;
+	if index == 8:
+		return true;
+	return false;
+
+#Similar to "place random stage", but check that you don't block off access
+#by having some excluded points
+func placewall():
+	var emptyspots:Array[Vector2i] = [];
+	
+	var j:int = 0;
+	while j < HEIGHT:
+		var i:int = 0;
+		while i < WIDTH:
+			var pos:Vector2i = Vector2i(i, j);
+			if levelgrid[i + (j * WIDTH)] == "clear" and playerposition != pos and !placementposition.has(pos):
+				if not indexisadjacenttodestination(i): #exclude points beside destinations to prevent blocked paths
+					emptyspots.push_back(pos);
+			i += 1;
+		j += 1;
+	
+	if emptyspots.size() > 0:
+		var newplacementstage = "wall_new";
 		var newplacementposition = emptyspots.pop_back();
 		
 		placementstage.push_back(newplacementstage);

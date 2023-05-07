@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2jjjf5gfaw87"]
+[gd_scene load_steps=13 format=3 uid="uid://c2jjjf5gfaw87"]
 
 [ext_resource type="Texture2D" uid="uid://bqet427wvole" path="res://graphics/stageicons.png" id="1_daxga"]
 
@@ -37,6 +37,10 @@ region = Rect2(128, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_c73y2"]
 atlas = ExtResource("1_daxga")
 region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6tlp"]
+atlas = ExtResource("1_daxga")
+region = Rect2(144, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_01k2p"]
 animations = [{
@@ -111,9 +115,25 @@ animations = [{
 "loop": true,
 "name": &"question",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6tlp")
+}],
+"loop": true,
+"name": &"wall_new",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6tlp")
+}],
+"loop": true,
+"name": &"wall_old",
+"speed": 5.0
 }]
 
 [node name="stageicon" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_01k2p")
-animation = &"delivery"
+animation = &"player"
 autoplay = "question"
