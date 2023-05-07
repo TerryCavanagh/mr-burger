@@ -10,10 +10,13 @@ extends Node2D
 @onready var cursor = UI.get_node("cursor");
 @onready var playerimage = UI.get_node("playerimage");
 @onready var movingarrow = UI.get_node("movingarrow");
-@onready var Header = UI.get_node("Header");
 @onready var FadeLayer = UI.get_node("FadeLayer");
 var movingdirection:String = "none";
 var movevector:Vector2;
+
+const GRIDXOFFSET:int = 50;
+const GRIDYOFFSET:int = 15;
+const GRIDSPACING:int = 20;
 
 var state:String = "select";
 var timer:float = 0.0;
@@ -119,7 +122,7 @@ func _process(delta):
 					movevector = Vector2i(-2, 0);
 				"right":
 					movevector = Vector2i(2, 0);
-			timer = 11;
+			timer = 9;
 			
 			World.levelgrid[gridindex(World.playerposition)] = "clear";
 			levelgrid[gridindex(World.playerposition)].play("clear");
@@ -143,7 +146,7 @@ func _process(delta):
 							movevector = Vector2i(-2, 0);
 						"right":
 							movevector = Vector2i(2, 0);
-					timer = 11;
+					timer = 9;
 					
 					World.levelgrid[gridindex(World.playerposition)] = "clear";
 					levelgrid[gridindex(World.playerposition)].play("clear");
@@ -183,12 +186,6 @@ func _process(delta):
 				
 			if pressedjump:
 				if World.cursorposition != World.playerposition:
-					var headertext = S.uppercase(World.levelgrid[gridindex(World.cursorposition)]);
-					if headertext != "CLEAR":
-						Header.text = headertext;
-					else:
-						Header.text = "choose your path";
-						
 					if World.levelgrid[gridindex(World.cursorposition)] == "clear":
 						state = "selectedclear";
 					else:
@@ -224,6 +221,7 @@ func settolevelgrid():
 	while j < World.HEIGHT:
 		var i:int = 0;
 		while i < World.WIDTH:
+			levelgrid[i + (j * World.WIDTH)].position = Vector2(GRIDXOFFSET + (GRIDSPACING * i), GRIDYOFFSET + (GRIDSPACING * j));
 			levelgrid[i + (j * World.WIDTH)].play(World.levelgrid[i + (j * World.WIDTH)]);
 			i += 1;
 		j += 1;
@@ -231,7 +229,7 @@ func settolevelgrid():
 	levelgrid[gridindex(World.playerposition)].play("player");
 
 func getscreenpositionfromgrid(gridpos:Vector2i) -> Vector2:
-	return Vector2(40 + (gridpos.x * 24), 10 + (gridpos.y * 24));
+	return Vector2(GRIDXOFFSET + (gridpos.x * GRIDSPACING), GRIDYOFFSET + (gridpos.y * GRIDSPACING));
 
 func movecursor(gridpos:Vector2i):
 	World.cursorposition = gridpos;
