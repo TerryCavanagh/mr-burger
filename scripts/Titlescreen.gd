@@ -13,6 +13,7 @@ func _process(_delta):
 func startgame():
 	FadeLayer.visible = true;
 	World.preloadlevels();
+	World.preloadentities();
 	#await get_tree().create_timer(0.5).timeout
 	GameGlobal.newgame();
 	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");

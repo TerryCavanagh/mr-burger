@@ -3,6 +3,7 @@ extends Node
 var nextstage:String;
 var nextlevel:String;
 var levels:Dictionary = {};
+var entities:Dictionary = {};
 
 var levelgrid:Array[String] = [];
 const WIDTH:int = 4;
@@ -33,7 +34,19 @@ func preloadlevels():
 			if !dir.current_is_dir():
 				var levelname = file_name.split(".")[0];
 				levels[levelname] = load("res://levels/" + file_name);
-			file_name = dir.get_next()
+			file_name = dir.get_next();
+
+func preloadentities():
+	var dir = DirAccess.open("entities/");
+	
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if !dir.current_is_dir():
+				var entityname = file_name.split(".")[0];
+				entities[entityname] = load("res://entities/" + file_name);
+			file_name = dir.get_next();
 
 func generateopeninggrid():
 	var levellist:Array = [
