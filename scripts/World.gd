@@ -161,7 +161,7 @@ func placewall():
 		while i < WIDTH:
 			var pos:Vector2i = Vector2i(i, j);
 			if levelgrid[i + (j * WIDTH)] == "clear" and playerposition != pos and !placementposition.has(pos):
-				if not indexisadjacenttodestination(i): #exclude points beside destinations to prevent blocked paths
+				if not indexisadjacenttodestination(i + (j * WIDTH)): #exclude points beside destinations to prevent blocked paths
 					emptyspots.push_back(pos);
 			i += 1;
 		j += 1;
@@ -176,3 +176,14 @@ func placewall():
 func clearplacements():
 	placementstage = [];
 	placementposition = [];
+	
+func stageat(v:Vector2i) -> String:
+	var returnvalue:String = "wall";
+	if v.x >= 0 and v.x < WIDTH:
+		if v.y >= 0 and v.y < HEIGHT:
+			returnvalue = levelgrid[gridindex(v)];
+	
+	if S.isinstring(returnvalue, "_"):
+		returnvalue = S.getroot(returnvalue, "_");
+	
+	return returnvalue;

@@ -156,25 +156,25 @@ func _process(delta):
 		"select":
 			var attempt:bool = true;
 			if pressup:
-				if World.playerposition.y - 1 >= 0:
+				if World.stageat(World.playerposition + Vector2i(0, -1)) != "wall":
 					movecursor(World.playerposition + Vector2i(0, -1));
 					movingdirection = "up";
 				else:
 					attempt = false;
 			if pressdown:
-				if World.playerposition.y + 1 < World.HEIGHT:
+				if World.stageat(World.playerposition + Vector2i(0, 1)) != "wall":
 					movecursor(World.playerposition + Vector2i(0, 1));
 					movingdirection = "down";
 				else:
 					attempt = false;
 			if pressleft:
-				if World.playerposition.x - 1 >= 0:
+				if World.stageat(World.playerposition + Vector2i(-1, 0)) != "wall":
 					movecursor(World.playerposition + Vector2i(-1, 0));
 					movingdirection = "left";
 				else:
 					attempt = false;
 			if pressright:
-				if World.playerposition.x + 1 < World.WIDTH:
+				if World.stageat(World.playerposition + Vector2i(1, 0)) != "wall":
 					movecursor(World.playerposition + Vector2i(1, 0));
 					movingdirection = "right";
 				else:
