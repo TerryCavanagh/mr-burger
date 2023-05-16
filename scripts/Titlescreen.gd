@@ -17,7 +17,9 @@ func startgame():
 	#await get_tree().create_timer(0.5).timeout
 	GameGlobal.newgame();
 	
-	World.nextstage = "testlevel"; World.nextlevel = "testlevel";
+	if BuildConfig.TESTLEVEL:
+		World.nextstage = "testlevel";
+		World.nextlevel = "testlevel";
 	
 	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");
 	#get_tree().change_scene_to_file("res://scenes/level_select.tscn");

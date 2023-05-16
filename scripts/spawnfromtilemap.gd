@@ -15,6 +15,7 @@ const DOT_HIGH:Array[Vector2i] = [Vector2i(3, 10)];
 const KEY:Array[Vector2i] = [Vector2i(4, 10)];
 const CHECKPOINT:Array[Vector2i] = [Vector2i(5, 10)];
 const LADDER:Array[Vector2i] = [Vector2i(4, 9)];
+const BLANK:Array[Vector2i] = [Vector2i(0, 10)];
 
 const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(7, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7)];
 
@@ -31,6 +32,7 @@ func _ready() -> void:
 		spawnall(getpositions(KEY), "key", ["fixbackground"]);
 		spawnall(getpositions(CHECKPOINT), "checkpoint", ["fixbackground"]);
 		spawnall(getpositions(LADDER), "ladder", ["fixbackground", "extend"]);
+		spawnall(getpositions(BLANK), "", ["fixbackground"]);
 		
 		tilemap.force_update(0);
 
@@ -50,8 +52,12 @@ func spawnall(positions:Array[Vector2], entitytype:String, variant:Array[String]
 		spawn(t, entitytype, variant);
 
 func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
-	var newentity = World.entities[entitytype].instantiate();
-	newentity.position = pos;
+	var spawnentity:bool = false;
+	var newentity;
+	if entitytype != "":
+		newentity = World.entities[entitytype].instantiate();
+		newentity.position = pos;
+		spawnentity = true;
 	
 	for v in variant:
 		match v:
@@ -101,7 +107,8 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				
 				tile_place(column, row, background);
 	
-	add_child(newentity);
+	if spawnentity:
+		add_child(newentity);
 
 func tile_isbackground(x:int, y:int) -> bool:
 	var tile:Vector2i = tile_at(x, y);
