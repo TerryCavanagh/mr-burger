@@ -4,21 +4,35 @@ extends Node2D
 
 const CLOUD:Array[Vector2i] = [Vector2i(4, 6)];
 const SEAWEED:Array[Vector2i] = [Vector2i(6, 3), Vector2i(6, 4), Vector2i(8, 4), Vector2i(8, 5)]
+const SPIKE_UP:Array[Vector2i] = [Vector2i(0, 9)];
+const SPIKE_DOWN:Array[Vector2i] = [Vector2i(1, 9)];
+const SPIKE_RIGHT:Array[Vector2i] = [Vector2i(2, 9)];
+const SPIKE_LEFT:Array[Vector2i] = [Vector2i(3, 9)];
 
 const STAR:Array[Vector2i] = [Vector2i(1, 10)];
 const DOT:Array[Vector2i] = [Vector2i(2, 10)];
 const DOT_HIGH:Array[Vector2i] = [Vector2i(3, 10)];
+const KEY:Array[Vector2i] = [Vector2i(4, 10)];
+const CHECKPOINT:Array[Vector2i] = [Vector2i(5, 10)];
+const LADDER:Array[Vector2i] = [Vector2i(4, 9)];
 
 const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(7, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7)];
 
 func _ready() -> void:
 	if tilemap != null:
 		spawnall(getpositions(SEAWEED), "killbox", ["small"]);
+		spawnall(getpositions(SPIKE_UP), "spikes", ["fixbackground", "up"]);
+		spawnall(getpositions(SPIKE_DOWN), "spikes", ["fixbackground", "down"]);
+		spawnall(getpositions(SPIKE_LEFT), "spikes", ["fixbackground", "left"]);
+		spawnall(getpositions(SPIKE_RIGHT), "spikes", ["fixbackground", "right"]);
 		spawnall(getpositions(STAR), "coin", ["fixbackground"]);
 		spawnall(getpositions(DOT), "dot", ["fixbackground"]);
 		spawnall(getpositions(DOT_HIGH), "dot", ["fixbackground", "high"]);
-	
-	tilemap.force_update(0);
+		spawnall(getpositions(KEY), "key", ["fixbackground"]);
+		spawnall(getpositions(CHECKPOINT), "checkpoint", ["fixbackground"]);
+		spawnall(getpositions(LADDER), "ladder", ["fixbackground", "extend"]);
+		
+		tilemap.force_update(0);
 
 func getpositions(tiletype:Array[Vector2i]) -> Array[Vector2]:
 	var completetilelist:Array[Vector2i] = [];
@@ -41,26 +55,63 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 	
 	for v in variant:
 		match v:
+			"up":
+				newentity.type = "up";
+			"down":
+				newentity.type = "down";
+			"left":
+				newentity.type = "left";
+			"right":
+				newentity.type = "right";
 			"small":
 				newentity.get_node("Area2D").get_node("CollisionShape2D").shape.size = Vector2(6, 6);
 			"high":
 				newentity.position.y -= 8;
+			"extend":
+				@warning_ignore("narrowing_conversion")
+				var xpos:int = (pos.x / 16);
+				@warning_ignore("narrowing_conversion")
+				var ypos:int = (pos.y / 16);
+				
+				var height:int = 1;
+				
+				while tile_isbackground(xpos, ypos + 1) and height < 20:
+					height += 1;
+					ypos += 1;
+				
+				newentity.height = height;
 			"fixbackground":
 				@warning_ignore("narrowing_conversion")
 				var column:int = (pos.x / 16);
 				@warning_ignore("narrowing_conversion")
-				var row:int = (pos.y / 16)
+				var row:int = (pos.y / 16);
 				var background:Vector2i = Vector2i(0, 0);
 				
-				var i:int = 0;
+				if column < 0:
+					column -= 1;
+				
+				var i:int = tilemap.get_used_rect().position.x;
 				var tilemap_width:int = tilemap.get_used_rect().size.x;
 				while i < tilemap_width:
-					var tile = tilemap.get_cell_atlas_coords(0, Vector2i(i, row));
+					var tile = tile_at(i, row);
 					if BACKGROUND.has(tile):
 						background = tile;
 						i = tilemap_width;
 					i += 1;
 				
-				tilemap.set_cell(0, Vector2i(column, row), 0, background, 0);
+				tile_place(column, row, background);
 	
 	add_child(newentity);
+
+func tile_isbackground(x:int, y:int) -> bool:
+	var tile:Vector2i = tile_at(x, y);
+	if BACKGROUND.has(tile):
+		return true;
+	
+	return false;
+
+func tile_at(x:int, y:int) -> Vector2i:
+	return tilemap.get_cell_atlas_coords(0, Vector2i(x, y));
+	
+func tile_place(x:int, y:int, t:Vector2i):
+	tilemap.set_cell(0, Vector2i(x, y), 0, t, 0);

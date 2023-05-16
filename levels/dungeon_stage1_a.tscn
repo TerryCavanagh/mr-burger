@@ -40,15 +40,12 @@ position = Vector2(31, 144)
 
 [node name="Ladder" parent="Entities" instance=ExtResource("7_iy7wd")]
 position = Vector2(72, 72)
-height = 6
 
 [node name="Ladder2" parent="Entities" instance=ExtResource("7_iy7wd")]
 position = Vector2(296, 120)
-height = 7
 
 [node name="Ladder3" parent="Entities" instance=ExtResource("7_iy7wd")]
 position = Vector2(-88, 138)
-height = 7
 
 [node name="Key" parent="Entities" instance=ExtResource("8_7ty13")]
 position = Vector2(-41, 147)
@@ -219,7 +216,6 @@ shape = SubResource("RectangleShape2D_4hcwe")
 
 [node name="Ladder" parent="." instance=ExtResource("7_iy7wd")]
 position = Vector2(200, 248)
-height = 6
 
 [node name="Enemy" parent="." instance=ExtResource("12_nqmbt")]
 position = Vector2(257, 328)
