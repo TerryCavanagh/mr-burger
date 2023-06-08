@@ -1,6 +1,12 @@
 extends Node2D
 
 @export var tilemap:TileMap = null;
+@export var Enemy1_Parameters:EnemyParameters;
+@export var Enemy2_Parameters:EnemyParameters;
+@export var Enemy3_Parameters:EnemyParameters;
+@export var Enemy4_Parameters:EnemyParameters;
+@export var Enemy5_Parameters:EnemyParameters;
+@export var Enemy6_Parameters:EnemyParameters;
 
 const CLOUD:Array[Vector2i] = [Vector2i(4, 6)];
 const SEAWEED:Array[Vector2i] = [Vector2i(6, 3), Vector2i(6, 4), Vector2i(8, 4), Vector2i(8, 5)]
@@ -22,6 +28,8 @@ const CHECKPOINT:Array[Vector2i] = [Vector2i(5, 10)];
 const LADDER:Array[Vector2i] = [Vector2i(4, 9)];
 const BLANK:Array[Vector2i] = [Vector2i(0, 10)];
 
+const ENEMY1:Array[Vector2i] = [Vector2i(0, 11)];
+
 const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7)];
 
 func _ready() -> void:
@@ -42,6 +50,7 @@ func _ready() -> void:
 		spawnall(getpositions(KEY), "key", ["fixbackground"]);
 		spawnall(getpositions(CHECKPOINT), "checkpoint", ["fixbackground"]);
 		spawnall(getpositions(LADDER), "ladder", ["fixbackground", "extend"]);
+		spawnall(getpositions(ENEMY1), "simpleenemy", ["fixbackground", "enemy1"]);
 		spawnall(getpositions(BLANK), "", ["fixbackground"]);
 		
 		tilemap.force_update(0);
@@ -124,6 +133,8 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 					i += 1;
 				
 				tile_place(column, row, background);
+			"enemy1":
+				newentity.image = Enemy1_Parameters.sprite;
 	
 	if spawnentity:
 		add_child(newentity);

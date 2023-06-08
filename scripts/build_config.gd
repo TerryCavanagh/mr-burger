@@ -1,4 +1,4 @@
 extends Node
 
-const TESTLEVEL:bool = false;
+const TESTLEVEL:bool = true;
 const LEVELSKIP:bool = true;
