@@ -121,7 +121,6 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 					var tile = tile_at(i, row);
 					if BACKGROUND.has(tile):
 						background = tile;
-						i = tilemap_width;
 					i += 1;
 				
 				tile_place(column, row, background);
