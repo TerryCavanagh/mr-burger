@@ -145,24 +145,17 @@ func _physics_process(delta):
 			elif pressdown:
 				velocity.y = LADDERSPEED;
 		
-		if onfloor or touchingladder or grabbedrope or swimming:
-			if pressleft and pressright:
-				movingdirection = 0;
-			elif pressleft:
-				movingdirection = -1;
-				facingdirection = -1;
-			elif pressright:
-				movingdirection = 1;
-				facingdirection = 1;
-			else:
-				movingdirection = 0;
+		if pressleft and pressright:
+			movingdirection = 0;
+		elif pressleft:
+			movingdirection = -1;
+			facingdirection = -1;
+		elif pressright:
+			movingdirection = 1;
+			facingdirection = 1;
 		else:
-			#If you didn't jump, fall straight down
-			if jumped and initialy > position.y:
-				movingdirection = facingdirection;
-			else:
-				movingdirection = 0;
-			
+			movingdirection = 0;
+		
 		if movingdirection != 0:
 			velocity.x = movingdirection * SPEED
 		else:
