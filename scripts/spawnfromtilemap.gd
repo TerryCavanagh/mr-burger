@@ -29,6 +29,11 @@ const LADDER:Array[Vector2i] = [Vector2i(4, 9)];
 const BLANK:Array[Vector2i] = [Vector2i(0, 10)];
 
 const ENEMY1:Array[Vector2i] = [Vector2i(0, 11)];
+const ENEMY2:Array[Vector2i] = [Vector2i(1, 11)];
+const ENEMY3:Array[Vector2i] = [Vector2i(2, 11)];
+const ENEMY4:Array[Vector2i] = [Vector2i(3, 11)];
+const ENEMY5:Array[Vector2i] = [Vector2i(4, 11)];
+const ENEMY6:Array[Vector2i] = [Vector2i(5, 11)];
 
 const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7)];
 
@@ -51,6 +56,11 @@ func _ready() -> void:
 		spawnall(getpositions(CHECKPOINT), "checkpoint", ["fixbackground"]);
 		spawnall(getpositions(LADDER), "ladder", ["fixbackground", "extend"]);
 		spawnall(getpositions(ENEMY1), "simpleenemy", ["fixbackground", "enemy1"]);
+		spawnall(getpositions(ENEMY2), "simpleenemy", ["fixbackground", "enemy2"]);
+		spawnall(getpositions(ENEMY3), "simpleenemy", ["fixbackground", "enemy3"]);
+		spawnall(getpositions(ENEMY4), "simpleenemy", ["fixbackground", "enemy4"]);
+		spawnall(getpositions(ENEMY5), "simpleenemy", ["fixbackground", "enemy5"]);
+		spawnall(getpositions(ENEMY6), "simpleenemy", ["fixbackground", "enemy6"]);
 		spawnall(getpositions(BLANK), "", ["fixbackground"]);
 		
 		tilemap.force_update(0);
@@ -135,6 +145,64 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				tile_place(column, row, background);
 			"enemy1":
 				newentity.image = Enemy1_Parameters.sprite;
+				newentity.behaviour = Enemy1_Parameters.behaviour;
+				newentity.speed = Enemy1_Parameters.speed;
+				newentity.movementrange = Enemy1_Parameters.movementrange;
+				newentity.waitdelayframes = Enemy1_Parameters.waitdelayframes;
+				newentity.offset = Enemy1_Parameters.starting_offset;
+				
+				newentity.position.x += Enemy1_Parameters.xoffset;
+				newentity.position.y += Enemy1_Parameters.yoffset;
+			"enemy2":
+				newentity.image = Enemy2_Parameters.sprite;
+				newentity.behaviour = Enemy2_Parameters.behaviour;
+				newentity.speed = Enemy2_Parameters.speed;
+				newentity.movementrange = Enemy2_Parameters.movementrange;
+				newentity.waitdelayframes = Enemy2_Parameters.waitdelayframes;
+				newentity.offset = Enemy2_Parameters.starting_offset;
+				
+				newentity.position.x += Enemy2_Parameters.xoffset;
+				newentity.position.y += Enemy2_Parameters.yoffset;
+			"enemy3":
+				newentity.image = Enemy3_Parameters.sprite;
+				newentity.behaviour = Enemy3_Parameters.behaviour;
+				newentity.speed = Enemy3_Parameters.speed;
+				newentity.movementrange = Enemy3_Parameters.movementrange;
+				newentity.waitdelayframes = Enemy3_Parameters.waitdelayframes;
+				newentity.offset = Enemy3_Parameters.starting_offset;
+				
+				newentity.position.x += Enemy3_Parameters.xoffset;
+				newentity.position.y += Enemy3_Parameters.yoffset;
+			"enemy4":
+				newentity.image = Enemy4_Parameters.sprite;
+				newentity.behaviour = Enemy4_Parameters.behaviour;
+				newentity.speed = Enemy4_Parameters.speed;
+				newentity.movementrange = Enemy4_Parameters.movementrange;
+				newentity.waitdelayframes = Enemy4_Parameters.waitdelayframes;
+				newentity.offset = Enemy4_Parameters.starting_offset;
+				
+				newentity.position.x += Enemy4_Parameters.xoffset;
+				newentity.position.y += Enemy4_Parameters.yoffset;
+			"enemy5":
+				newentity.image = Enemy5_Parameters.sprite;
+				newentity.behaviour = Enemy5_Parameters.behaviour;
+				newentity.speed = Enemy5_Parameters.speed;
+				newentity.movementrange = Enemy5_Parameters.movementrange;
+				newentity.waitdelayframes = Enemy5_Parameters.waitdelayframes;
+				newentity.offset = Enemy5_Parameters.starting_offset;
+				
+				newentity.position.x += Enemy5_Parameters.xoffset;
+				newentity.position.y += Enemy5_Parameters.yoffset;
+			"enemy6":
+				newentity.image = Enemy6_Parameters.sprite;
+				newentity.behaviour = Enemy6_Parameters.behaviour;
+				newentity.speed = Enemy6_Parameters.speed;
+				newentity.movementrange = Enemy6_Parameters.movementrange;
+				newentity.waitdelayframes = Enemy6_Parameters.waitdelayframes;
+				newentity.offset = Enemy6_Parameters.starting_offset;
+				
+				newentity.position.x += Enemy6_Parameters.xoffset;
+				newentity.position.y += Enemy6_Parameters.yoffset;
 	
 	if spawnentity:
 		add_child(newentity);

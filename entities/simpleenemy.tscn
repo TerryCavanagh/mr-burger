@@ -257,7 +257,7 @@ shape = SubResource("RectangleShape2D_l2wan")
 [node name="slime" type="AnimatedSprite2D" parent="Animations"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_lqwjk")
-animation = &"left"
+animation = &"idle_left"
 autoplay = "left"
 
 [node name="crab" type="AnimatedSprite2D" parent="Animations"]
@@ -269,7 +269,7 @@ autoplay = "left"
 [node name="face" type="AnimatedSprite2D" parent="Animations"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_th1sk")
-animation = &"idle_left"
+animation = &"left"
 autoplay = "left"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
