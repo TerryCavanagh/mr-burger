@@ -105,6 +105,7 @@ func _physics_process(delta):
 		var pressup:bool  = Input.is_action_pressed("up");
 		var pressdown:bool = Input.is_action_pressed("down");
 		var pressedjump:bool = Input.is_action_just_pressed("confirm");
+		var pressedreset:bool = Input.is_action_just_pressed("reset");
 		
 		if BuildConfig.LEVELSKIP:
 			if pressdown and pressup:
@@ -116,7 +117,11 @@ func _physics_process(delta):
 			pressup = false;
 			pressdown = false;
 			pressedjump = false;
-			
+			pressedreset = false;
+		
+		if pressedreset:
+			killplayer();
+			deathtimer = 0;
 		
 		# Handle Jump
 		if pressedjump:
