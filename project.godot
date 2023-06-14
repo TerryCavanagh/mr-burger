@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 Random="*res://scripts/library/Random.gd"
 S="*res://scripts/library/S.gd"
-World="*res://scripts/World.gd"
+World="*res://scripts/library/World.gd"
 Timers="*res://scripts/library/Timers.gd"
 GameGlobal="*res://scripts/GameGlobal.gd"
 BuildConfig="*res://scripts/build_config.gd"
