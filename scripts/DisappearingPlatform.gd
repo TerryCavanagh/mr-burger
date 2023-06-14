@@ -5,7 +5,6 @@ var time:float = 0;
 
 var collisionbit:StaticBody2D = null;
 
-
 func _ready():
 	state = "ready";
 	collisionenable();
@@ -22,6 +21,7 @@ func collisionenable():
 	add_child(collisionbit)
 	
 func collisiondisable():
+	print("platform dissolved...");
 	collisionbit.queue_free();
 	
 func _process(delta):
@@ -29,7 +29,6 @@ func _process(delta):
 		time -= delta;
 		if time <= 0:
 			state = "off";
-			$AnimatedSprite2D.visible = false;
 			collisiondisable();
 
 func reset():
@@ -39,6 +38,7 @@ func reset():
 	collisionenable();
 
 func startdissolve():
+	print("dissolving platform...");
 	$AnimatedSprite2D.play("disappearing");
 	state = "dissolving"
 	time = 0.70;
