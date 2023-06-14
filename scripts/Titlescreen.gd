@@ -18,8 +18,8 @@ func startgame():
 	GameGlobal.newgame();
 	
 	if BuildConfig.TESTLEVEL:
-		World.nextstage = "testlevel";
-		World.nextlevel = "testlevel";
+		World.nextstage = BuildConfig.testlevelstage;
+		World.nextlevel = BuildConfig.testlevellevel;
 	
 	get_tree().change_scene_to_file("res://scenes/Platformer.tscn");
 	#get_tree().change_scene_to_file("res://scenes/level_select.tscn");
