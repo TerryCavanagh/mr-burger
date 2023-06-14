@@ -20,6 +20,22 @@ func _ready():
 	Sprite = get_node("Animations/" + image);
 	Sprite.visible = true;
 	
+	var area2d = $Area2D;
+	var collisionshape = CollisionShape2D.new();
+	area2d.add_child(collisionshape);
+	var rectshape = RectangleShape2D.new();
+	collisionshape.shape = rectshape;
+	
+	collisionshape.shape.size.x = 14;
+	
+	match image:
+		"crab", "fish", "scorpion", "slime":
+			collisionshape.shape.size.y = 8;
+			collisionshape.position.y = 4;
+		"bug", "cog", "face":
+			collisionshape.shape.size.y = 14;
+			collisionshape.position.y = 0;
+	
 	offset = offset * TILESIZE;
 	direction = behaviour;
 	playanimation();
