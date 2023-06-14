@@ -1,17 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://pxi5fa0gjob8"]
+[gd_scene load_steps=20 format=3 uid="uid://pxi5fa0gjob8"]
 
 [ext_resource type="Script" path="res://scripts/DisappearingPlatform.gd" id="1_lnqlv"]
 [ext_resource type="Texture2D" uid="uid://b4k1lv7507mxm" path="res://graphics/disappearingplatform.png" id="2_5maf0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cyt3w"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_upw5o"]
 atlas = ExtResource("2_5maf0")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vexqu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dvcx"]
 atlas = ExtResource("2_5maf0")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f415n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8axi"]
 atlas = ExtResource("2_5maf0")
 region = Rect2(48, 0, 16, 16)
 
@@ -19,21 +19,21 @@ region = Rect2(48, 0, 16, 16)
 atlas = ExtResource("2_5maf0")
 region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5whbb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbbv6"]
 atlas = ExtResource("2_5maf0")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0k3sj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_0wutw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cyt3w")
+"texture": SubResource("AtlasTexture_upw5o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vexqu")
+"texture": SubResource("AtlasTexture_5dvcx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f415n")
+"texture": SubResource("AtlasTexture_a8axi")
 }, {
 "duration": 1000.0,
 "texture": SubResource("AtlasTexture_xp3x8")
@@ -44,7 +44,95 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5whbb")
+"texture": SubResource("AtlasTexture_bbbv6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8fh5"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nswh"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08m7j"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sa43w"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0k3sj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8fh5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nswh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08m7j")
+}, {
+"duration": 1000.0,
+"texture": SubResource("AtlasTexture_xp3x8")
+}],
+"loop": true,
+"name": &"disappearing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sa43w")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjwsv"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw0um"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcysn"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gxjs"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_34a1v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjwsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw0um")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcysn")
+}, {
+"duration": 1000.0,
+"texture": SubResource("AtlasTexture_xp3x8")
+}],
+"loop": true,
+"name": &"disappearing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gxjs")
 }],
 "loop": true,
 "name": &"idle",
@@ -57,11 +145,29 @@ size = Vector2(16, 4)
 [node name="Disappearing Platform" type="Node2D" groups=["disapperingplatform"]]
 script = ExtResource("1_lnqlv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="gray" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_0wutw")
+animation = &"disappearing"
+autoplay = "idle"
+
+[node name="yellow" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_0k3sj")
 animation = &"disappearing"
 autoplay = "idle"
-frame_progress = 0.0128352
+
+[node name="pink" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_34a1v")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="green" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_0k3sj")
+animation = &"disappearing"
+autoplay = "idle"
 
 [node name="Area2D" type="Area2D" parent="."]
 

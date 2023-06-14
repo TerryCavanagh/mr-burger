@@ -132,9 +132,11 @@ position = Vector2(392, 345)
 
 [node name="Disappearing Platform" parent="." instance=ExtResource("8_6odeg")]
 position = Vector2(248, 408)
+colour = "pink"
 
 [node name="Disappearing Platform2" parent="." instance=ExtResource("8_6odeg")]
 position = Vector2(264, 408)
+colour = "pink"
 
 [node name="Dot" parent="." instance=ExtResource("9_s72oe")]
 position = Vector2(296, 328)

@@ -3,11 +3,14 @@ extends Node2D
 var state = "ready";
 var time:float = 0;
 
+@export_enum("gray", "yellow", "pink", "green") var colour = "gray";
+
+var animatedsprite:AnimatedSprite2D = null;
 var collisionbit:StaticBody2D = null;
 
 func _ready():
-	state = "ready";
-	collisionenable();
+	animatedsprite = get_node(colour);
+	reset();
 	
 func collisionenable():
 	collisionbit = StaticBody2D.new();
@@ -33,13 +36,13 @@ func _process(delta):
 
 func reset():
 	state = "ready";
-	$AnimatedSprite2D.visible = true;
-	$AnimatedSprite2D.play("idle");
+	animatedsprite.visible = true;
+	animatedsprite.play("idle");
 	collisionenable();
 
 func startdissolve():
 	print("dissolving platform...");
-	$AnimatedSprite2D.play("disappearing");
+	animatedsprite.play("disappearing");
 	state = "dissolving"
 	time = 0.70;
 
