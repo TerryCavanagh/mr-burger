@@ -40,7 +40,7 @@ size = Vector2(70, 90)
 size = Vector2(33, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8rih"]
-size = Vector2(45, 32)
+size = Vector2(48.5, 49)
 
 [node name="Level" type="Node2D"]
 
@@ -147,11 +147,13 @@ shape = SubResource("RectangleShape2D_4hcwe")
 
 [node name="Teleporter" type="Area2D" parent="."]
 script = ExtResource("6_6owkr")
-movey = -350
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleporter"]
-position = Vector2(458.5, 361)
+position = Vector2(455, 375)
 shape = SubResource("RectangleShape2D_v8rih")
+
+[node name="destination" type="Node2D" parent="Teleporter"]
+position = Vector2(456, 0)
 
 [node name="Fence2" parent="." instance=ExtResource("7_0f50i")]
 position = Vector2(392, 216)
