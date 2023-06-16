@@ -320,6 +320,10 @@ func releaserope():
 	grabbedrope = false;
 	rope = null
 
+func move_by(xoff:int, yoff:int):
+	position.x += xoff;
+	position.y += yoff;
+
 func victory():
 	Game.cuttoblack();
 	
