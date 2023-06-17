@@ -35,7 +35,7 @@ const ENEMY4:Array[Vector2i] = [Vector2i(3, 11)];
 const ENEMY5:Array[Vector2i] = [Vector2i(4, 11)];
 const ENEMY6:Array[Vector2i] = [Vector2i(5, 11)];
 
-const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7)];
+const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7), Vector2i(0, 7)];
 
 func _ready() -> void:
 	if tilemap != null:
