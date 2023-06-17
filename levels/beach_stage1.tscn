@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwjhnbcoiloc8"]
+[gd_scene load_steps=14 format=3 uid="uid://crwb56hg4euk8"]
 
 [ext_resource type="TileSet" uid="uid://bw4gfq8om3cop" path="res://graphics/tileset.tres" id="1_a33a8"]
 [ext_resource type="PackedScene" uid="uid://bsgpiu4moruge" path="res://entities/checkpoint.tscn" id="2_0yec7"]
