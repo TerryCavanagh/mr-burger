@@ -35,8 +35,7 @@ func _process(delta):
 func loadlevel(stage, newlevel):
 	unloadlevel();
 	currentlevel = newlevel;
-	var version:String = "a";
-	LevelNode.add_child(World.levels[stage + "_" + currentlevel + "_" + version].instantiate());
+	LevelNode.add_child(World.levels[stage + "_" + currentlevel].instantiate());
 
 func unloadlevel():
 	if(LevelNode.has_node("Level")):
