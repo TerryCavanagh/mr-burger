@@ -14,6 +14,7 @@ const SPIKE_UP:Array[Vector2i] = [Vector2i(0, 9)];
 const SPIKE_DOWN:Array[Vector2i] = [Vector2i(1, 9)];
 const SPIKE_RIGHT:Array[Vector2i] = [Vector2i(2, 9)];
 const SPIKE_LEFT:Array[Vector2i] = [Vector2i(3, 9)];
+const CAVESPIKE:Array[Vector2i] = [Vector2i(12, 0), Vector2i(14, 2), Vector2i(15, 2), Vector2i(16, 2)];
 const LAVA:Array[Vector2i] = [Vector2i(7, 0), Vector2i(4, 1)];
 
 const STAR:Array[Vector2i] = [Vector2i(1, 10)];
@@ -35,7 +36,7 @@ const ENEMY4:Array[Vector2i] = [Vector2i(3, 11)];
 const ENEMY5:Array[Vector2i] = [Vector2i(4, 11)];
 const ENEMY6:Array[Vector2i] = [Vector2i(5, 11)];
 
-const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7), Vector2i(0, 7)];
+const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7), Vector2i(0, 7), Vector2i(11, 0)];
 
 func _ready() -> void:
 	if tilemap != null:
@@ -45,6 +46,7 @@ func _ready() -> void:
 		spawnall(getpositions(SPIKE_DOWN), "spikes", ["fixbackground", "down"]);
 		spawnall(getpositions(SPIKE_LEFT), "spikes", ["fixbackground", "left"]);
 		spawnall(getpositions(SPIKE_RIGHT), "spikes", ["fixbackground", "right"]);
+		spawnall(getpositions(CAVESPIKE), "killbox", ["small"]);
 		spawnall(getpositions(STAR), "coin", ["fixbackground"]);
 		spawnall(getpositions(STAR_HIGH), "coin", ["fixbackground", "high"]);
 		spawnall(getpositions(STAR_LOW), "coin", ["fixbackground", "low"]);
