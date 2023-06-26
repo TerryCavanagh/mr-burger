@@ -1,23 +1,23 @@
-[gd_scene load_steps=20 format=3 uid="uid://pxi5fa0gjob8"]
+[gd_scene load_steps=10 format=3 uid="uid://pxi5fa0gjob8"]
 
 [ext_resource type="Script" path="res://scripts/DisappearingPlatform.gd" id="1_lnqlv"]
 [ext_resource type="Texture2D" uid="uid://b4k1lv7507mxm" path="res://graphics/disappearingplatform.png" id="2_5maf0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_upw5o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xp3x8"]
 atlas = ExtResource("2_5maf0")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5dvcx"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(32, 0, 16, 16)
+region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8axi"]
 atlas = ExtResource("2_5maf0")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xp3x8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dvcx"]
 atlas = ExtResource("2_5maf0")
-region = Rect2(64, 0, 16, 16)
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_upw5o"]
+atlas = ExtResource("2_5maf0")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bbbv6"]
 atlas = ExtResource("2_5maf0")
@@ -25,6 +25,26 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0wutw"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xp3x8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8axi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dvcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upw5o")
+}, {
+"duration": 1000.0,
+"texture": SubResource("AtlasTexture_bbbv6")
+}],
+"loop": true,
+"name": &"appearing",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_upw5o")
@@ -51,128 +71,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5iwup"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(16, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fs720"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(32, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1hct"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(48, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y17lb"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(0, 80, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0k3sj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5iwup")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fs720")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s1hct")
-}, {
-"duration": 1000.0,
-"texture": SubResource("AtlasTexture_xp3x8")
-}],
-"loop": true,
-"name": &"disappearing",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y17lb")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xjwsv"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xw0um"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(32, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dcysn"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(48, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1gxjs"]
-atlas = ExtResource("2_5maf0")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_34a1v"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xjwsv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xw0um")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dcysn")
-}, {
-"duration": 1000.0,
-"texture": SubResource("AtlasTexture_xp3x8")
-}],
-"loop": true,
-"name": &"disappearing",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1gxjs")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hn3tn"]
 size = Vector2(16, 4)
 
 [node name="Disappearing Platform" type="Node2D" groups=["disapperingplatform"]]
 script = ExtResource("1_lnqlv")
 
-[node name="gray" type="AnimatedSprite2D" parent="."]
-visible = false
+[node name="sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0wutw")
-animation = &"disappearing"
-autoplay = "idle"
-
-[node name="yellow" type="AnimatedSprite2D" parent="."]
-visible = false
-sprite_frames = SubResource("SpriteFrames_0k3sj")
-animation = &"disappearing"
-autoplay = "idle"
-
-[node name="pink" type="AnimatedSprite2D" parent="."]
-visible = false
-sprite_frames = SubResource("SpriteFrames_34a1v")
-animation = &"idle"
-autoplay = "idle"
-
-[node name="green" type="AnimatedSprite2D" parent="."]
-visible = false
-sprite_frames = SubResource("SpriteFrames_0k3sj")
-animation = &"disappearing"
-autoplay = "idle"
-
-[node name="brown" type="AnimatedSprite2D" parent="."]
-visible = false
-sprite_frames = SubResource("SpriteFrames_0k3sj")
-animation = &"disappearing"
+animation = &"appearing"
 autoplay = "idle"
 
 [node name="Area2D" type="Area2D" parent="."]
