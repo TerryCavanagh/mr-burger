@@ -36,7 +36,6 @@ func collisionenable():
 	add_child(collisionbit)
 	
 func collisiondisable():
-	print("platform dissolved...");
 	collisionbit.queue_free();
 	
 func _process(delta):
@@ -65,7 +64,6 @@ func reset():
 	collisionenable();
 
 func startdissolve():
-	print("dissolving platform...");
 	animatedsprite.play("disappearing");
 	state = "dissolving"
 	time = 0.4666;

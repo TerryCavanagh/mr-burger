@@ -91,7 +91,8 @@ func cuttowhite():
 	UI.get_node("FadeLayer").visible = false;
 
 func revive():
-	get_tree().call_group("disapperingplatform", "reset");
+	#get_tree().call_group("disapperingplatform", "reset");
+	pass
 	
 func showmessage(msg:String):
 	UI.get_node("Message").get_node("Text").text = msg;

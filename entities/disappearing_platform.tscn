@@ -74,7 +74,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hn3tn"]
 size = Vector2(16, 4)
 
-[node name="Disappearing Platform" type="Node2D" groups=["disapperingplatform"]]
+[node name="Disappearing Platform" type="Node2D"]
 script = ExtResource("1_lnqlv")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]

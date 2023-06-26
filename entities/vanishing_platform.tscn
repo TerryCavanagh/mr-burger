@@ -180,7 +180,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Vanishing Platform" type="Node2D" groups=["vanishingplatform"]]
+[node name="Vanishing Platform" type="Node2D"]
 script = ExtResource("1_b2wrk")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
