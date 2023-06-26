@@ -2,9 +2,12 @@ extends Node2D
 
 var state = "ready";
 var time:float = 0;
-const RESETTIME:float = 2.0;
+const TOGGLETIME_ON:float = 1.25;
+const TOGGLETIME_OFF:float = 1.25;
+const TOGGLETIME_CHANGE:float = 0.5;
 
 @export_enum("gray", "yellow", "pink", "green", "brown") var colour = "gray";
+@export_enum("on", "off") var startingstate = "on";
 
 var animatedsprite:AnimatedSprite2D = null;
 var collisionbit:StaticBody2D = null;
@@ -36,41 +39,59 @@ func collisionenable():
 	add_child(collisionbit)
 	
 func collisiondisable():
-	print("platform dissolved...");
 	collisionbit.queue_free();
 	
 func _process(delta):
-	if state == "dissolving":
-		time -= delta;
+	time -= delta;
+	
+	if state == "on":
 		if time <= 0:
-			state = "off"; time = RESETTIME;
-			collisiondisable();
+			startdisappear();
+	elif state == "disappearing":
+		if time <= 0:
+			turnoff();
 	elif state == "off":
-		time -= delta;
 		if time <= 0:
-			state = "appearing"; time = 0.2;
-			animatedsprite.play("appearing");
-			collisionenable();
+			startappear();
 	elif state == "appearing":
-		time -= delta;
 		if time <= 0:
-			state = "ready"; time = 0;
-			animatedsprite.play("idle");
+			turnon();
 
 func reset():
-	state = "ready";
-	animatedsprite.visible = true;
-	animatedsprite.speed_scale = 1.5;
-	animatedsprite.play("idle");
-	collisionenable();
+	animatedsprite.speed_scale = 2 / TOGGLETIME_CHANGE;
+	if startingstate == "on":
+		state = "on"; time = TOGGLETIME_ON;
+		animatedsprite.visible = true;
+	
+		animatedsprite.play("idle_on");
+		collisionenable();
+	else:
+		state = "off"; time = TOGGLETIME_OFF;
+		animatedsprite.play("idle_off");
+		animatedsprite.visible = true;
 
-func startdissolve():
-	print("dissolving platform...");
+func turnon():
+	animatedsprite.play("idle_on");
+	
+	state = "on";
+	time = TOGGLETIME_ON;
+
+func turnoff():
+	animatedsprite.play("idle_off");
+	collisiondisable();
+	
+	state = "off";
+	time = TOGGLETIME_OFF;
+
+func startdisappear():
 	animatedsprite.play("disappearing");
-	state = "dissolving"
-	time = 0.4666;
+	state = "disappearing";
+	time = TOGGLETIME_CHANGE;
+	
+func startappear():
+	animatedsprite.play("appearing");
+	collisionenable();
+	
+	state = "appearing";
+	time = TOGGLETIME_CHANGE;
 
-func _on_area_2d_body_entered(body):
-	if body.is_in_group("player"):
-		if state == "ready":
-			startdissolve();
