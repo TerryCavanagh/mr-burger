@@ -36,6 +36,24 @@ const ENEMY4:Array[Vector2i] = [Vector2i(3, 11)];
 const ENEMY5:Array[Vector2i] = [Vector2i(4, 11)];
 const ENEMY6:Array[Vector2i] = [Vector2i(5, 11)];
 
+const DISAPPEARINGPLATFORM_GRAY:Array[Vector2i] = [Vector2i(6, 11)];
+const DISAPPEARINGPLATFORM_YELLOW:Array[Vector2i] = [Vector2i(7, 11)];
+const DISAPPEARINGPLATFORM_PINK:Array[Vector2i] = [Vector2i(8, 11)];
+const DISAPPEARINGPLATFORM_GREEN:Array[Vector2i] = [Vector2i(9, 11)];
+const DISAPPEARINGPLATFORM_BROWN:Array[Vector2i] = [Vector2i(10, 11)];
+
+const VANISHINGPLATFORM_ON_GRAY:Array[Vector2i] = [Vector2i(11, 10)];
+const VANISHINGPLATFORM_ON_YELLOW:Array[Vector2i] = [Vector2i(12, 10)];
+const VANISHINGPLATFORM_ON_PINK:Array[Vector2i] = [Vector2i(13, 10)];
+const VANISHINGPLATFORM_ON_GREEN:Array[Vector2i] = [Vector2i(14, 10)];
+const VANISHINGPLATFORM_ON_BROWN:Array[Vector2i] = [Vector2i(15, 10)];
+
+const VANISHINGPLATFORM_OFF_GRAY:Array[Vector2i] = [Vector2i(11, 11)];
+const VANISHINGPLATFORM_OFF_YELLOW:Array[Vector2i] = [Vector2i(12, 11)];
+const VANISHINGPLATFORM_OFF_PINK:Array[Vector2i] = [Vector2i(13, 11)];
+const VANISHINGPLATFORM_OFF_GREEN:Array[Vector2i] = [Vector2i(14, 11)];
+const VANISHINGPLATFORM_OFF_BROWN:Array[Vector2i] = [Vector2i(15, 11)];
+
 const BACKGROUND:Array[Vector2i] = [Vector2i(0, 0), Vector2i(5, 0), Vector2i(2, 3), Vector2i(6, 6), Vector2i(9, 6), Vector2i(9, 7), Vector2i(0, 7), Vector2i(11, 0)];
 
 func _ready() -> void:
@@ -63,6 +81,21 @@ func _ready() -> void:
 		spawnall(getpositions(ENEMY4), "simpleenemy", ["fixbackground", "enemy4"]);
 		spawnall(getpositions(ENEMY5), "simpleenemy", ["fixbackground", "enemy5"]);
 		spawnall(getpositions(ENEMY6), "simpleenemy", ["fixbackground", "enemy6"]);
+		spawnall(getpositions(DISAPPEARINGPLATFORM_GRAY), "disappearing_platform", ["fixbackground", "gray"]);
+		spawnall(getpositions(DISAPPEARINGPLATFORM_YELLOW), "disappearing_platform", ["fixbackground", "yellow"]);
+		spawnall(getpositions(DISAPPEARINGPLATFORM_PINK), "disappearing_platform", ["fixbackground", "pink"]);
+		spawnall(getpositions(DISAPPEARINGPLATFORM_GREEN), "disappearing_platform", ["fixbackground", "green"]);
+		spawnall(getpositions(DISAPPEARINGPLATFORM_BROWN), "disappearing_platform", ["fixbackground", "brown"]);
+		spawnall(getpositions(VANISHINGPLATFORM_ON_GRAY), "vanishing_platform", ["fixbackground", "gray"]);
+		spawnall(getpositions(VANISHINGPLATFORM_ON_YELLOW), "vanishing_platform", ["fixbackground", "yellow"]);
+		spawnall(getpositions(VANISHINGPLATFORM_ON_PINK), "vanishing_platform", ["fixbackground", "pink"]);
+		spawnall(getpositions(VANISHINGPLATFORM_ON_GREEN), "vanishing_platform", ["fixbackground", "green"]);
+		spawnall(getpositions(VANISHINGPLATFORM_ON_BROWN), "vanishing_platform", ["fixbackground", "brown"]);
+		spawnall(getpositions(VANISHINGPLATFORM_OFF_GRAY), "vanishing_platform", ["fixbackground", "gray", "off"]);
+		spawnall(getpositions(VANISHINGPLATFORM_OFF_YELLOW), "vanishing_platform", ["fixbackground", "yellow", "off"]);
+		spawnall(getpositions(VANISHINGPLATFORM_OFF_PINK), "vanishing_platform", ["fixbackground", "pink", "off"]);
+		spawnall(getpositions(VANISHINGPLATFORM_OFF_GREEN), "vanishing_platform", ["fixbackground", "green", "off"]);
+		spawnall(getpositions(VANISHINGPLATFORM_OFF_BROWN), "vanishing_platform", ["fixbackground", "brown", "off"]);
 		spawnall(getpositions(BLANK), "", ["fixbackground"]);
 		
 		tilemap.force_update(0);
@@ -102,6 +135,20 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.type = "left";
 			"right":
 				newentity.type = "right";
+			"gray":
+				newentity.colour = "gray";
+			"yellow":
+				newentity.colour = "yellow";
+			"green":
+				newentity.colour = "green";
+			"pink":
+				newentity.colour = "pink";
+			"brown":
+				newentity.colour = "brown";
+			"on":
+				newentity.startingstate = "on";
+			"off":
+				newentity.startingstate = "off";
 			"small":
 				newentity.get_node("Area2D").get_node("CollisionShape2D").shape.size = Vector2(6, 6);
 			"large":
