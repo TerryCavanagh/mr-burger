@@ -3,7 +3,7 @@ extends Node2D
 var state = "ready";
 var time:float = 0;
 
-@export_enum("gray", "yellow", "pink", "green") var colour = "gray";
+@export_enum("gray", "yellow", "pink", "green", "brown") var colour = "gray";
 
 var animatedsprite:AnimatedSprite2D = null;
 var collisionbit:StaticBody2D = null;
@@ -37,6 +37,7 @@ func _process(delta):
 func reset():
 	state = "ready";
 	animatedsprite.visible = true;
+	animatedsprite.speed_scale = 1.5;
 	animatedsprite.play("idle");
 	collisionenable();
 
@@ -44,7 +45,7 @@ func startdissolve():
 	print("dissolving platform...");
 	animatedsprite.play("disappearing");
 	state = "dissolving"
-	time = 0.70;
+	time = 0.4666;
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
