@@ -144,72 +144,94 @@ func _physics_process(delta):
 				movingdirection = facingdirection;
 				
 		
-		if !jumped && (touchingladder || grabbedrope):
+		if !jumped && touchingladder:
 			if pressup:
 				velocity.y = -LADDERSPEED;
 			elif pressdown:
 				velocity.y = LADDERSPEED;
+		elif !jumped && grabbedrope:
+			if pressup:
+				rope.ropeposition -= 0.05;
+				if rope.ropeposition < 0.2:
+					rope.ropeposition = 0.2;
+			elif pressdown:
+				rope.ropeposition += 0.05;
 		
-		if pressleft and pressright:
+		if grabbedrope:
+			updatepositiontorope();
 			movingdirection = 0;
-		elif pressleft:
-			movingdirection = -1;
-			facingdirection = -1;
-		elif pressright:
-			movingdirection = 1;
-			facingdirection = 1;
+			
+			if pressleft:
+				facingdirection = -1;
+			elif pressright:
+				facingdirection = 1;
 		else:
-			movingdirection = 0;
+			if pressleft and pressright:
+				movingdirection = 0;
+			elif pressleft:
+				movingdirection = -1;
+				facingdirection = -1;
+			elif pressright:
+				movingdirection = 1;
+				facingdirection = 1;
+			else:
+				movingdirection = 0;
 		
-		if movingdirection != 0:
-			velocity.x = movingdirection * SPEED
-		else:
-			velocity.x = 0
+			if movingdirection != 0:
+				velocity.x = movingdirection * SPEED
+			else:
+				velocity.x = 0
 		
 		updatetreadmillforces();
 		if treadmillforce && onfloor:
 			velocity.x += treadmillforce;
 			
-		#Animation
-		if swimming and !onfloor:
-			if facingdirection < 0:
-				Sprite.play("swimming_left");
-			else:
-				Sprite.play("swimming_right");
-		elif touchingladder || grabbedrope:
-			if velocity.y:
-				if facingdirection < 0:
-					Sprite.play("climbing_left");
-				else:
-					Sprite.play("climbing_right");
-			else:
-				if facingdirection < 0:
-					Sprite.play("idle_climbing_left");
-				else:
-					Sprite.play("idle_climbing_right");
-		elif !onfloor:
-			if facingdirection < 0:
-				Sprite.play("jump_left");
-			else:
-				Sprite.play("jump_right");
-		else:
-			if movingdirection == 0:
-				if facingdirection < 0:
-					Sprite.play("idle_left");
-				elif facingdirection > 0:
-					Sprite.play("idle_right");
-			else:
-				if facingdirection < 0:
-					Sprite.play("left");
-				elif facingdirection > 0:
-					Sprite.play("right");
-		
+		updateanimation(onfloor);
 		move_and_slide();
 	elif state == "DEATH":
 		deathtimer -= delta;
 		if deathtimer <= 0:
 			deathtimer = 0;
 			revive();
+
+func updatepositiontorope():
+	position.x = rope.position.x + (rope.ropeposition * rope.ropelength * rope.ropedirx);
+	position.y = rope.position.y + (rope.ropeposition * rope.ropelength * rope.ropediry);
+
+func updateanimation(_onfloor:bool):
+	#Animation
+	if swimming and !_onfloor:
+		if facingdirection < 0:
+			Sprite.play("swimming_left");
+		else:
+			Sprite.play("swimming_right");
+	elif touchingladder || grabbedrope:
+		if velocity.y:
+			if facingdirection < 0:
+				Sprite.play("climbing_left");
+			else:
+				Sprite.play("climbing_right");
+		else:
+			if facingdirection < 0:
+				Sprite.play("idle_climbing_left");
+			else:
+				Sprite.play("idle_climbing_right");
+	elif !_onfloor:
+		if facingdirection < 0:
+			Sprite.play("jump_left");
+		else:
+			Sprite.play("jump_right");
+	else:
+		if movingdirection == 0:
+			if facingdirection < 0:
+				Sprite.play("idle_left");
+			elif facingdirection > 0:
+				Sprite.play("idle_right");
+		else:
+			if facingdirection < 0:
+				Sprite.play("left");
+			elif facingdirection > 0:
+				Sprite.play("right");
 
 func movecamera(zone:Rect2):
 	if(zone.position.x != camera.limit_left or zone.position.y != camera.limit_top):
@@ -313,8 +335,11 @@ func checkinwater():
 	inwater = false;
 
 func grabrope(_rope):
-	grabbedrope = true;
-	rope = _rope
+	if !grabbedrope:
+		grabbedrope = true;
+		rope = _rope
+		rope.ropeposition = rope.DEFAULTROPEPOSITION;
+		updatepositiontorope();
 	
 func releaserope():
 	grabbedrope = false;
