@@ -3,9 +3,10 @@ extends Node2D
 @onready var shape = $Area2D/CollisionShape2D;
 
 @export var ropelength:int = 48;
+@export var speed:float = 1.0;
 
 #number between 0-36000
-@export var angle:int = 0;
+var angle:int = 0;
 
 var ropedirx:float = 0;
 var ropediry:float = 0;
@@ -14,6 +15,7 @@ var ropeposition:float = 0.85;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AnimationPlayer.speed_scale = 1.5 * speed;
 	shape.shape.size = Vector2(4, ropelength);
 	@warning_ignore("integer_division")
 	shape.position.y = int(floor(ropelength / 2));
