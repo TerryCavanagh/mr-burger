@@ -28,6 +28,7 @@ const KEY:Array[Vector2i] = [Vector2i(4, 10)];
 const CHECKPOINT:Array[Vector2i] = [Vector2i(5, 10)];
 const LADDER:Array[Vector2i] = [Vector2i(4, 9)];
 const BLANK:Array[Vector2i] = [Vector2i(0, 10)];
+const WATERDRIP:Array[Vector2i] = [Vector2i(6, 10)];
 
 const ENEMY1:Array[Vector2i] = [Vector2i(0, 11)];
 const ENEMY2:Array[Vector2i] = [Vector2i(1, 11)];
@@ -73,6 +74,7 @@ func _ready() -> void:
 		spawnall(getpositions(DOT_HIGH), "dot", ["fixbackground", "high"]);
 		spawnall(getpositions(DOT_LOW), "dot", ["fixbackground", "low"]);
 		spawnall(getpositions(KEY), "key", ["fixbackground"]);
+		spawnall(getpositions(WATERDRIP), "waterdrip", ["fixwaterdrip"]);
 		spawnall(getpositions(CHECKPOINT), "checkpoint", ["fixbackground"]);
 		spawnall(getpositions(LADDER), "ladder", ["fixbackground", "extend"]);
 		spawnall(getpositions(ENEMY1), "simpleenemy", ["fixbackground", "enemy1"]);
@@ -173,6 +175,14 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 					ypos += 1;
 				
 				newentity.height = height;
+			"fixwaterdrip":
+				@warning_ignore("narrowing_conversion")
+				var column:int = (pos.x / 16);
+				@warning_ignore("narrowing_conversion")
+				var row:int = (pos.y / 16);
+				tile_place(column, row, Vector2i(12, 0));
+				
+				newentity.position.y += 6;
 			"fixbackground":
 				@warning_ignore("narrowing_conversion")
 				var column:int = (pos.x / 16);
