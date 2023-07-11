@@ -38,7 +38,6 @@ tilemap = NodePath("../TileMap")
 Enemy1_Parameters = SubResource("Resource_w8n6b")
 
 [node name="CameraRegions" type="Node2D" parent="."]
-visible = false
 
 [node name="x0y0" type="Area2D" parent="CameraRegions"]
 script = ExtResource("3_cwgat")

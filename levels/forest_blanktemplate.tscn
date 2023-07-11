@@ -23,7 +23,6 @@ script = ExtResource("2_dxf8n")
 tilemap = NodePath("../TileMap")
 
 [node name="CameraRegions" type="Node2D" parent="."]
-visible = false
 
 [node name="x0y0" type="Area2D" parent="CameraRegions"]
 script = ExtResource("3_7feet")
@@ -125,7 +124,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x0y3"]
-position = Vector2(80, 306)
+position = Vector2(80, 314)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -133,7 +132,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x1y3"]
-position = Vector2(240, 306)
+position = Vector2(240, 314)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -141,7 +140,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x2y3"]
-position = Vector2(400, 306)
+position = Vector2(400, 314)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -149,7 +148,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x3y3"]
-position = Vector2(560, 306)
+position = Vector2(560, 314)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -157,7 +156,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x0y4"]
-position = Vector2(80, 396)
+position = Vector2(80, 404)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -165,7 +164,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x1y4"]
-position = Vector2(240, 396)
+position = Vector2(240, 404)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -173,7 +172,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x2y4"]
-position = Vector2(400, 396)
+position = Vector2(400, 404)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -181,7 +180,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 script = ExtResource("3_7feet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraRegions/x3y4"]
-position = Vector2(560, 396)
+position = Vector2(560, 404)
 shape = SubResource("RectangleShape2D_jn5ib")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 

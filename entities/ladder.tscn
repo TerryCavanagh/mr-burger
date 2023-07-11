@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://chuvd570kouaj"]
+[gd_scene load_steps=4 format=3 uid="uid://chuvd570kouaj"]
 
 [ext_resource type="Script" path="res://scripts/ladder.gd" id="1_lkjul"]
 [ext_resource type="Texture2D" uid="uid://dganms25ydrkk" path="res://graphics/ladder.png" id="2_2w6ga"]
+[ext_resource type="Texture2D" uid="uid://chdu34v2kqfn5" path="res://graphics/laddertree.png" id="3_s3lba"]
 
 [node name="Ladder" type="Node2D"]
 script = ExtResource("1_lkjul")
 
 [node name="Ladder" type="Sprite2D" parent="."]
 texture = ExtResource("2_2w6ga")
+
+[node name="LadderTree" type="Sprite2D" parent="."]
+texture = ExtResource("3_s3lba")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
