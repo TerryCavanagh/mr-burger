@@ -11,6 +11,7 @@ var speed:int = 0;
 var movementrange:int = 1;
 var waitdelayframes:int = 0;
 var wait:int = 0;
+var colour:String;
 
 var offset:int = 0;
 
@@ -18,6 +19,18 @@ const TILESIZE:int = 16;
 
 func _ready():
 	Sprite = get_node("Animations/" + image);
+	
+	match colour:
+		"pink":
+			Sprite.self_modulate = Palette.PINK;
+		"red":
+			Sprite.self_modulate = Palette.RED;
+		"white":
+			Sprite.self_modulate = Palette.WHITE;
+		"yellow":
+			Sprite.self_modulate = Palette.YELLOW;
+	
+	
 	Sprite.visible = true;
 	
 	var area2d = $Area2D;

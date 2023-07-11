@@ -5,6 +5,7 @@ var direction:int = -1;
 @export var aistyle:String = "pace";
 @export var movespeed:int = 1;
 @export var image:String = "slime";
+@export_enum("pink", "red", "white", "yellow") var colour = "pink";
 var turntime:float = 3;
 var time:float = 0;
 
@@ -16,6 +17,17 @@ var state:int = 0;
 
 func _ready():
 	Sprite = get_node("Animations/" + image);
+	
+	match colour:
+		"pink":
+			Sprite.self_modulate = Palette.PINK;
+		"red":
+			Sprite.self_modulate = Palette.RED;
+		"white":
+			Sprite.self_modulate = Palette.WHITE;
+		"yellow":
+			Sprite.self_modulate = Palette.YELLOW;
+	
 	Sprite.visible = true;
 	# 0: command
 	# 1: animation

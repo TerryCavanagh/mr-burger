@@ -209,6 +209,7 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.movementrange = Enemy1_Parameters.movementrange;
 				newentity.waitdelayframes = Enemy1_Parameters.waitdelayframes;
 				newentity.offset = Enemy1_Parameters.starting_offset;
+				newentity.colour = Enemy1_Parameters.colour;
 				
 				newentity.position.x += Enemy1_Parameters.xoffset;
 				newentity.position.y += Enemy1_Parameters.yoffset;
@@ -219,6 +220,7 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.movementrange = Enemy2_Parameters.movementrange;
 				newentity.waitdelayframes = Enemy2_Parameters.waitdelayframes;
 				newentity.offset = Enemy2_Parameters.starting_offset;
+				newentity.colour = Enemy2_Parameters.colour;
 				
 				newentity.position.x += Enemy2_Parameters.xoffset;
 				newentity.position.y += Enemy2_Parameters.yoffset;
@@ -229,6 +231,7 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.movementrange = Enemy3_Parameters.movementrange;
 				newentity.waitdelayframes = Enemy3_Parameters.waitdelayframes;
 				newentity.offset = Enemy3_Parameters.starting_offset;
+				newentity.colour = Enemy3_Parameters.colour;
 				
 				newentity.position.x += Enemy3_Parameters.xoffset;
 				newentity.position.y += Enemy3_Parameters.yoffset;
@@ -239,6 +242,7 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.movementrange = Enemy4_Parameters.movementrange;
 				newentity.waitdelayframes = Enemy4_Parameters.waitdelayframes;
 				newentity.offset = Enemy4_Parameters.starting_offset;
+				newentity.colour = Enemy4_Parameters.colour;
 				
 				newentity.position.x += Enemy4_Parameters.xoffset;
 				newentity.position.y += Enemy4_Parameters.yoffset;
@@ -249,6 +253,7 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.movementrange = Enemy5_Parameters.movementrange;
 				newentity.waitdelayframes = Enemy5_Parameters.waitdelayframes;
 				newentity.offset = Enemy5_Parameters.starting_offset;
+				newentity.colour = Enemy5_Parameters.colour;
 				
 				newentity.position.x += Enemy5_Parameters.xoffset;
 				newentity.position.y += Enemy5_Parameters.yoffset;
@@ -259,6 +264,7 @@ func spawn(pos:Vector2, entitytype:String, variant:Array[String] = []):
 				newentity.movementrange = Enemy6_Parameters.movementrange;
 				newentity.waitdelayframes = Enemy6_Parameters.waitdelayframes;
 				newentity.offset = Enemy6_Parameters.starting_offset;
+				newentity.colour = Enemy6_Parameters.colour;
 				
 				newentity.position.x += Enemy6_Parameters.xoffset;
 				newentity.position.y += Enemy6_Parameters.yoffset;

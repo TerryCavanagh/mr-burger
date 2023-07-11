@@ -7,6 +7,7 @@ class_name EnemyParameters
 @export var movementrange:int = 5;
 
 @export_subgroup("Advanced")
+@export_enum("pink", "red", "white", "yellow") var colour = "pink";
 @export var waitdelayframes:float = 15;
 @export var starting_offset:int = 0;
 @export var xoffset:int = 0;
