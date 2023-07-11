@@ -53,6 +53,8 @@ position = Vector2(176, 45)
 shape = SubResource("RectangleShape2D_uyp38")
 
 [node name="MessageZone" type="Area2D" parent="Dangerzones"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("6_o85te")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dangerzones/MessageZone"]
