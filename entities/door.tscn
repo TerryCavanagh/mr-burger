@@ -16,11 +16,14 @@ script = ExtResource("1_s5qn7")
 texture = ExtResource("2_3b58u")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_1li4u")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_e53sa")

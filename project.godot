@@ -75,6 +75,12 @@ reset={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Tilemap"
+2d_physics/layer_2="Entities"
+2d_physics/layer_3="Water"
+
 [physics]
 
 common/physics_ticks_per_second=30

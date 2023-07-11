@@ -572,6 +572,8 @@ animations = [{
 script = ExtResource("1_ptc3x")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="Animations" type="Node2D" parent="."]
 

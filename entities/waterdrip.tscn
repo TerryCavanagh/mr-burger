@@ -126,6 +126,7 @@ size = Vector2(8, 7.5)
 size = Vector2(6, 5)
 
 [node name="waterdrip" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_v0fci")
 
 [node name="dripsprite" type="AnimatedSprite2D" parent="."]
@@ -134,6 +135,8 @@ animation = &"splash"
 autoplay = "wait"
 
 [node name="collision" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collision"]
 position = Vector2(-1, 4.75)
