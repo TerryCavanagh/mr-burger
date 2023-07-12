@@ -6,7 +6,7 @@ const TOGGLETIME_ON:float = 1.25;
 const TOGGLETIME_OFF:float = 1.25;
 const TOGGLETIME_CHANGE:float = 0.5;
 
-@export_enum("gray", "yellow", "pink", "green", "brown") var colour = "gray";
+@export_enum("gray", "yellow", "pink", "green", "brown", "white") var colour = "gray";
 @export_enum("on", "off") var startingstate = "on";
 
 var animatedsprite:AnimatedSprite2D = null;
@@ -25,6 +25,8 @@ func _ready():
 			animatedsprite.self_modulate = Color("#6ccd30");
 		"brown":
 			animatedsprite.self_modulate = Color("#ffa600");
+		"white":
+			animatedsprite.self_modulate = Palette.WHITE;
 	reset();
 	
 func collisionenable():
